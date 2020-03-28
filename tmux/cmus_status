@@ -1,0 +1,68 @@
+#!/bin/bash
+
+cmus_max_song_length=8
+cmus_max_artist_length=8
+
+
+truncate_song() {
+   ((cmssl=${cmus_max_song_length}/2))
+   echo "${@}" | sed -E "s/^(.{$cmssl}).+(.{$cmssl})$/\1\.\.\2/g"
+}
+truncate_artist() {
+   echo "${@}" | sed -E "s/^(.{$cmus_max_artist_length}).+$/\1\.\./g"
+}
+
+fix_markup() {
+    echo "${@}" | sed 's/\&/\&amp\;/g' | sed 's/</\&lt\;/g' | sed 's/>/\&gt\;/g'
+}
+pretty_time() {
+  ((htotal=${1}/3600))
+  ((mtotal=(${1}%3600)/60))
+  ((stotal=${1}%60))
+
+  ((hcurrent=${2}/3600))
+  ((mcurrent=(${2}%3600)/60))
+  ((scurrent=${2}%60))
+
+  if [ "$htotal" == "0" ]; then		
+    printf "%02d:%02d/%02d:%02d" $mcurrent $scurrent $mtotal $stotal
+  else 
+    printf "%02d:%02d:%02d/%02d:%02d:%02d" $hcurrent $mcurrent $scurrent $htotal $mtotal $stotal
+  fi
+}
+
+cmus_status() {
+  #cmus-remote returns EXIT_FAILURE/EXIT_SUCCESS depending on whether or not cmus is running.
+  if cmus-remote -Q > /dev/null 2>&1; then
+    local cmus_status=$(cmus-remote -Q| grep "status" | cut -d ' ' -f 2)
+    local cmus_artist=$(cmus-remote -Q | grep -m 1 "artist" | cut -d ' ' -f 3-)
+    local cmus_title=$(cmus-remote -Q | grep "tag title" | cut -d ' ' -f 3-)
+    #The lines below works fine. Just uncomment them and add them
+    # in np below if you want the track number or album name.
+    #cmus_tracknumber=$(echo $cmus_data | grep "tracknumber" | cut -d ' ' -f 3)
+    local cmus_album=$(cmus-remote -Q | egrep "^tag album " | cut -d ' ' -f 3-)
+    local cmus_album=$(cmus-remote -Q | egrep "^tag album " | cut -d ' ' -f 3-)
+    local cmus_duration=$(cmus-remote -Q | egrep "^duration " | cut -d ' ' -f 2)
+    local cmus_position=$(cmus-remote -Q | egrep "^position " | cut -d ' ' -f 2)
+    
+    local cmus_combined="$(truncate_artist $cmus_artist) - $(truncate_song $cmus_title) $(pretty_time $cmus_duration $cmus_position)"
+    local song_old=$(cat /tmp/song 2>/dev/null)
+    local song_now="$(fix_markup $cmus_artist - $cmus_title)"
+    if [ "$song_now" != "$song_old" ]; then
+        echo $song_now > /tmp/songd
+        notify-send -u low -i ~/tmux/song.png "Now playing" "$song_now"
+    fi
+    echo "$song_now" > /tmp/song
+    if [ "$cmus_status" == "playing" ]; then
+      echo "${cmus_combined}  "
+    elif [ "$cmus_status" == "paused" ]; then 
+      echo "${cmus_combined}"
+    fi
+  fi
+}
+main() {
+    export USERNAME=n0psledbyte
+    cmus_status
+}
+main
+exit 0

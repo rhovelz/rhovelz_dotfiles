@@ -1,0 +1,1 @@
+Corshine's configuration

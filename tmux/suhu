@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ICON=(    )
+SUHU=$(acpi -t | awk '{print $4}')
+INDEX=$(echo "$SUHU/20.1" | bc)
+echo $SUHU"°C "${ICON[$INDEX]}
