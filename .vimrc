@@ -11,6 +11,7 @@
 " \___\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
 "                       |___/                                   
 "
+"Github: https://github.com/xcorshinex
 
 
 " List of vim-plug pluggin"
@@ -38,7 +39,6 @@ set shiftwidth=2
 set cursorline
 set showcmd
 set mouse=a
-
 
 " my colorscheme 
 syntax on
@@ -74,21 +74,6 @@ let g:syntastic_check_on_wq = 0
 " Clang_complete settings
 let g:clang_library_path='/usr/lib/llvm-8/lib/'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 " unicode symbols
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
@@ -111,4 +96,3 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-
