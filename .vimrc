@@ -22,6 +22,8 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+
+
 call plug#end()
 
 " relative number
@@ -96,3 +98,62 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+
+
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+let g:deoplete#enable_at_startup = 1
+
+
+Plug 'haya14busa/incsearch.vim'      
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.local/lib/fzf', 'do': './install --all' }
+Plug 'majutsushi/tagbar'                 | " Display tags in a window by scope.
+Plug 'qpkorr/vim-bufkill'                | " Delete buffer without losing split window
+Plug 'tpope/vim-sleuth'                  | " Autodetect file spacing
+Plug 'scrooloose/nerdcommenter'          | " Awesome Commenting
+Plug 'vim-scripts/autoswap.vim'          | " Handle swap files intelligently
+Plug 'tpope/vim-obsession'               | " continuously update session files
+Plug 'tpope/vim-fugitive'                | " Git wrapper
+Plug 'airblade/vim-rooter'               | " Set working directory to project root
+Plug 'tpope/vim-eunuch'                  | " Add unix commands to vim
+Plug 'tpope/vim-unimpaired'              | " Bracket mappings
+Plug 'samoshkin/vim-mergetool'           | " use vim as mergetool
+Plug 'editorconfig/editorconfig-vim'     | " .editorconfig support
+Plug 'easymotion/vim-easymotion'         | " Navigate files with ease
+Plug 'junegunn/vim-easy-align'           | " Align things
+Plug 'SirVer/ultisnips'                  | " Snippets engine
+Plug 'honza/vim-snippets'                | " Snippets
+Plug 'thosakwe/vim-flutter'              | " Commands for Flutter from vim
+Plug 'Shougo/echodoc'                    | " Displays function signatures from completions
+Plug 'camspiers/animate.vim'             |   " A Vim Automatic Window Resizing Plugin
+Plug 'camspiers/lens.vim'
+Plug 'drewtempelmeyer/palenight.vim'     | " Fantastic colors
+Plug 'nightsense/cosmic_latte'           | " Theme that's easy on the eyes
+Plug 'kjssad/quantum.vim'                | " A modern colorscheme inspired by firefox
+Plug 'owickstrom/vim-colors-paramount'   | " V. Dark colorscheme with purple accent
+Plug 'rakr/vim-one'                      | " one-dark colorscheme for vim
+Plug 'itchyny/lightline.vim'             | " Awesome status bar
+Plug 'maximbaz/lightline-ale'            | " ALE indicator for lightline
+Plug 'mengelbrecht/lightline-bufferline' | " A buffer plugin for lightline
+Plug 'psliwka/vim-smoothie'              | " Smooth scrolling
+Plug 'Yggdroot/indentLine'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'deoplete-plugins/deoplete-jedi'
+let g:deoplete#enable_at_startup = 1
+Plug 'haya14busa/incsearch.vim'      
+Plug 'haya14busa/incsearch-fuzzy.vim'
+
+
+
+
+
+
+
+
