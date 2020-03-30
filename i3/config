@@ -10,8 +10,8 @@
 #| (_| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | |
 # \___\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
 #                       |___/                                   
-
-
+#
+#
 # https://github.com/xcorshinex
 
 set $mod Mod4
@@ -53,7 +53,7 @@ bindsym $mod+Return exec urxvt
 
 # start some application
 bindsym $mod+Shift+w exec --no-startup-id firefox
-bindsym $mod+Shift+f exec --no-startup-id thunar
+bindsym $mod+Shift+f exec --no-startup-id nautilus
 bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
 bindsym $mod+Shift+m exec --no-startup-id rambox
 bindsym $mod+Shift+d exec --no-startup-id discord
@@ -71,7 +71,8 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # use rofi instead of dmenu
-bindsym $mod+d exec rofi -show drun
+#bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec rofi -show drun -show-icons -modi drun
 
 # change focus
 bindsym $mod+j focus left
@@ -135,7 +136,6 @@ set $ws7 7: 
 set $ws8 8: 
 set $ws9 9: 
 set $ws10 10: 
-
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -205,8 +205,9 @@ bindsym $mod+r mode "resize"
 bindsym $mod+shift+x exec betterlockscreen -l blur
 
 # Bind print screen
-bindsym Print exec xfce4-screenshooter
+bindsym Print exec flameshot
 exec --no-startup-id xfce4-clipman
+
 
 # Borders red and blue
 client.focused #EA0C47 #EA0C47 #EA0C47 #EA0C47    #EA0C47
@@ -267,6 +268,8 @@ exec --no-startup-id picom &
 #exec --no-startup-id wal -i ~/Pictures/WallpaperArch/machine.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/asyu1.png
 exec --no-startup-id nm-applet
+exec --no-startup-id flameshot
+
 
 #walfeh
 exec --no-startup-id ~/.config/autostart/fehwal.sh
