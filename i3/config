@@ -208,7 +208,6 @@ bindsym $mod+shift+x exec betterlockscreen -l blur
 bindsym Print exec flameshot
 exec --no-startup-id xfce4-clipman
 
-
 # Borders red and blue
 client.focused #EA0C47 #EA0C47 #EA0C47 #EA0C47    #EA0C47
 client.unfocused #04A2D2 #04A2D2 #04A2D2 #04A2D2	#04A2D2
@@ -269,7 +268,7 @@ exec --no-startup-id picom &
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/asyu1.png
 exec --no-startup-id nm-applet
 exec --no-startup-id flameshot
-
+exec_always --no-startup-id ~/.config/dunst/launch.sh
 
 #walfeh
 exec --no-startup-id ~/.config/autostart/fehwal.sh
