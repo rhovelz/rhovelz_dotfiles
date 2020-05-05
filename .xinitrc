@@ -1,2 +1,0 @@
-dunst &
-exec i3

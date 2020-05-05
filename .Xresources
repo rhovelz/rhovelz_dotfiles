@@ -11,7 +11,7 @@
 ! \___\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
 !                       |___/                                   
 !
-!https://github.com/xcorshinex
+!https://github.com/Corshine-Official
 
 
 
@@ -85,4 +85,4 @@ URxvt.url-select.launcher: /usr/bin/xdg-open
 
 
 
-Xcursor.theme: ArchCursorTheme
+Xcursor.theme: DebiTrix
