@@ -241,6 +241,9 @@ nmap <C-f> :FZF<cr>
 " vno <right> <Nop>
 " vno <up> <Nop>
 
+let g:airline_section_b = '%{strftime("%c")}'
+let g:airline_section_y = 'BN: %{bufnr("%")}'
+
 " prevent Vim scrolling when splitting a window
 nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
 " ----------------------------------------------------------------------------
@@ -276,7 +279,8 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tmuxline#enabled = 0
 
 " Vim-Airline-Theme
-let g:airline_theme='kalisi'
+"let g:airline_theme='serene'
+let g:airline_theme='night_owl'
 
 " Patching for middle section status line Terminal color
 let s:saved_theme = []
