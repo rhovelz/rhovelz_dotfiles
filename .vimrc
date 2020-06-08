@@ -1,18 +1,11 @@
 
-" ----------------------------------------------------------------------------
 set nocompatible               " be iMproved, required
 set t_Co=256                   " set terminal 256 color
-"filetype off                   " required
-" ----------------------------------------------------------------------------
-" ----------------------------------------------------------------------------
-" Plugin Manager {{{
-" Plugin Manager : vim-plug
-" Source : https://github.com/junegunn/vim-plug
 
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
@@ -58,25 +51,13 @@ Plug 'sunaku/vim-ruby-minitest'
 Plug 'lervag/vimtex'
 
 call plug#end()
-" }}}
-" ----------------------------------------------------------------------------
-
-" ----------------------------------------------------------------------------
-" Basic {{{
-" ----------------------------------------------------------------------------
 syntax enable
 filetype plugin indent on
 set encoding=UTF-8
 set number relativenumber
-" }}}
-" ----------------------------------------------------------------------------
-
-" ----------------------------------------------------------------------------
-
-" ----------------------------------------------------------------------------
-" Text Formatting/Layout {{{
-" ----------------------------------------------------------------------------
 set wrap " wrap text
+
+
 "set textwidth=80 " to 80 characters
 set formatoptions=cqt " see :help fo-table
 set infercase " case inferred by default
@@ -108,151 +89,81 @@ autocmd FileType tex setlocal shiftwidth=2 tabstop=2 conceallevel=0
 au BufRead,BufNewFile *.tex setlocal ft=tex
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
-" }}}
-" ----------------------------------------------------------------------------
-
-" ----------------------------------------------------------------------------
-" Keyboard Mappings {{{
-" ----------------------------------------------------------------------------
-" my leader key is comma
 let mapleader = ","
 let maplocalleader = ','
 
-" for edit my .vimrc
 nmap <leader>ev :e ~/.vimrc<cr>
-
-" for edit load my ssg blog writing guide (petunjuk penulisan)
 nmap <leader>ed :e ~/dex/bandithijo.com/_drafts/2018-01-01-format-penulisan-post.md<cr>
-
-" for edit utl.vim
 nmap <leader>eu :e ~/.vim/plugged/utl.vim/plugin/utl_rc.vim<cr>
-
-" for edit utl.vim
 nmap <leader>eo :e ~/.vim/plugged/vim-orgmode/doc/orgguide.txt<cr>
-
-" source vimrc
 nmap <leader>es :so $MYVIMRC
 
-" for move & delete buffer
 nmap <leader>n :bn<cr>
 nmap <leader>p :bp<cr>
 nnoremap <leader>d :bp<cr>:bd! #<cr>
 
-" this key combination gets rid of the search highlights
 nmap <leader><space> :noh<cr>
 
-" for clear highlight search
 nmap <leader><space> :nohlsearch<cr>
 
-" Ctags
 nmap <leader>g <C-]>
 
-" strip all trailing whitespace in the current file
 nmap <leader>W :StripWhitespace<cr>
 
-" Automatically deletes all trailing whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
-" open vertical split and switch to it
-"nnoremap <leader>v <C-w>v<C-w>l
-
-" open horizontal split and switch to it
-"nnoremap <leader>s <C-w>s<C-w>l
-
-" Map Ctrl-Backspace to delete the previous word in insert mode.
 imap <C-BS> <C-W>
 
-" Run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
 
-" Compile document, be it groff/LaTeX/markdown/etc.
 map <leader>C :w! \| !compiler <c-r>%<CR>
-
-" Remap exit from terminal mode
 tnoremap <Esc> <C-\><C-n>
 
-" for search
 nnoremap / /\v
 vnoremap / /\v
-
-" keep search matches in the middle of the window.
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-" another way to esc mode
 imap jj <Esc>
 
-" I hit F1 too often when reaching esc button
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" toggle NerdTree plugin
 nmap <F12> :NERDTreeToggle<cr>
-
-" toggle vim-minimap
-"let g:minimap_toggle='<F10>'
-
-" for move focus to each split
 nmap <C-h> <C-w><C-h>
 nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
+let NERDTreeShowHidden=1
 
-" sudo save
+
 cmap w!! w !sudo tee % >/dev/null
 
-" quit all
+
 cmap Q qa
 
-" for page up & page down
+
 noremap <C-u> <C-u>zz
 noremap <C-d> <C-d>zz
 
-" toggle Tagbar plugin
 nmap <F11> :TagbarToggle<cr>
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" toggle PymodeLintToggle
+
 nmap <F9> :PymodeLintToggle<cr>
 
-" fzf.vim
+
 nmap <C-p> :Buffers<cr>
 nmap <C-f> :FZF<cr>
-"nmap <C-f> :Files<cr>
-
-" disable arrow keys on insert mode and make up & down arrow as line bubbling
-"no <down> ddp
-"nmap <down> ]e " handled by vim-unimpaired
-" no <down> <Nop>
-" no <left> <Nop>
-" no <right> <Nop>
-" no <up> <Nop>
-"no <up> ddkP
-"nmap <up> [e " handled by vim-unimpaired
-" ino <down> <Nop>
-" ino <left> <Nop>
-" ino <right> <Nop>
-" ino <up> <Nop>
-" vno <down> <Nop>
-" vno <left> <Nop>
-" vno <right> <Nop>
-" vno <up> <Nop>
-
 let g:airline_section_b = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'
 
-" prevent Vim scrolling when splitting a window
 nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
-" ----------------------------------------------------------------------------
-" }}}
-" ----------------------------------------------------------------------------
 
 
 " Vim-Airline {{{
-" ----------------------------------------------------------------------------
 let g:airline_powerline_fonts = 1
 
 " Enable the list of buffers
@@ -262,27 +173,17 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-" Here is a complete list of formatters with screenshots:
-" default, jsformatter, unique_tail, unique_tail_improved
-
-" enable/disable fugitive/lawrencium integration
 let g:airline#extensions#branch#enabled = 1
-
-" enable/disable showing a summary of changed hunks under source control.
 let g:airline#extensions#hunks#enabled = 1
-
-" enable/disable showing only non-zero hunks.
 let g:airline#extensions#hunks#non_zero_only = 1
-
 let g:airline#extensions#whitespace#enabled = 0
-
 let g:airline#extensions#tmuxline#enabled = 0
 
 " Vim-Airline-Theme
 "let g:airline_theme='serene'
-let g:airline_theme='night_owl'
+"let g:airline_theme='night_owl'
+let g:airline_theme='zenburn'
 
-" Patching for middle section status line Terminal color
 let s:saved_theme = []
 let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
@@ -295,109 +196,20 @@ function! AirlineThemePatch(palette)
     endif
   endfor
 endfunction
-" ----------------------------------------------------------------------------
-" }}}
-
-" LightLine {{{
-" ----------------------------------------------------------------------------
-let g:lightline = {
-\   'colorscheme': 'landscape',
-\   'active': {
-\    'left' :[[ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly' ],
-\             [ 'filename', 'modified' ]],
-\    'right':[[ 'lineinfo' ],
-\             [ 'percent' ],
-\             [ 'filetype', 'fileencoding', 'fileformat' ] ]
-\   },
-\   'component': {
-\     'lineinfo': '? %3l:%-2v',
-\     'filename': '%<%f'
-\   },
-\   'component_function': {
-\     'gitbranch': 'LightlineFugitive',
-\     'readonly': 'LightlineReadonly',
-\     'modified': 'LightlineModified',
-\     'fileformat': 'LightlineFileformat',
-\     'filetype': 'LightlineFiletype',
-\   }
-\}
-"  'left': '?', 'right': '?'
-let g:lightline.separator = {
-\   'left': '', 'right': ''
-\}
-"   'left': '?', 'right': '?'
-let g:lightline.subseparator = {
-\   'left': '?', 'right': '?'
-\}
-let g:lightline.tabline = {
-\   'left': [['buffers']],
-\   'right': [['string1'], ['string2']]
-\}
-let g:lightline.component_expand = {
-\   'buffers': 'lightline#bufferline#buffers'
-\}
-let g:lightline.component_type = {
-\   'buffers': 'tabsel'
-\}
-
-function! LightlineModified()
-  return &modified ? '?' : ''
-endfunction
-
-function! LightlineReadonly()
-  return &readonly ? '?' : ''
-endfunction
-
-function! LightlineFugitive()
-  if exists('*fugitive#head')
-    let branch = fugitive#head()
-    return branch !=# '' ? '? '.branch : ''
-  endif
-  return fugitive#head()
-endfunction
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-" autoreload
-command! LightlineReload call LightlineReload()
-
-function! LightlineReload()
- call lightline#init()
- call lightline#colorscheme()
- call lightline#update()
-endfunction
-
-set showtabline=2  " Show tabline
-set guioptions-=e  " Don't use GUI tabline
-" ----------------------------------------------------------------------------
-" }}}
 
 
-" }}}
+
 
 " Rubycomplete {{{
-" ----------------------------------------------------------------------------
 let g:rubycomplete_rails=1
 let g:rubycomplete_classes_in_global=1
 let g:rubycomplete_buffer_loading=1
 let g:rubycomplete_include_object=1
 let g:rubycomplete_include_objectspace=1
-" ----------------------------------------------------------------------------
-" }}}
 
-" Greplace {{{
-" ----------------------------------------------------------------------------
 set grepprg=ag
 let g:grep_cmd_opts = '--line-numbers --noheading'
 " ----------------------------------------------------------------------------
-" }}}
 
 " pylint {{{
 " ----------------------------------------------------------------------------
@@ -453,19 +265,6 @@ let g:mkdp_echo_preview_url = 0
 " this function will receive url as param
 " default is empty
 let g:mkdp_browserfunc = ''
-
-" options for markdown render
-" mkit: markdown-it options for render
-" katex: katex options for math
-" uml: markdown-it-plantuml options
-" maid: mermaid options
-" disable_sync_scroll: if disable sync scroll, default 0
-" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
-"   middle: mean the cursor position alway show at the middle of the preview page
-"   top: mean the vim top viewport alway show at the top of the preview page
-"   relative: mean the cursor position alway show at the relative positon of the preview page
-" hide_yaml_meta: if hide yaml metadata, default is 1
-" sequence_diagrams: js-sequence-diagrams options
 let g:mkdp_preview_options = {
     \ 'mkit': {},
     \ 'katex': {},
@@ -478,19 +277,10 @@ let g:mkdp_preview_options = {
     \ 'flowchart_diagrams': {}
     \ }
 
-" use a custom markdown style must be absolute path
-" like '/Users/username/markdown.css' or expand('~/markdown.css')
 let g:mkdp_markdown_css = ''
-
-" use a custom highlight style must absolute path
-" like '/Users/username/highlight.css' or expand('~/highlight.css')
 let g:mkdp_highlight_css = ''
-
-" use a custom port to start server or random for empty
 let g:mkdp_port = ''
 
-" preview page title
-" ${name} will be replace with the file name
 let g:mkdp_page_title = '?${name}?'
 " ----------------------------------------------------------------------------
 " }}}
@@ -704,11 +494,11 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " indentLine {{{
 " ----------------------------------------------------------------------------
 let g:indentLine_color_term = 10
-let g:indentLine_char = '?'
+"let g:indentLine_char = '?'
 let g:indentLine_fileTypeExclude = [
-            \ '', 'markdown', 'json', 'liquid', 'org', 'conf', 'tex']
+           \ '', 'markdown', 'json', 'liquid', 'org', 'conf', 'tex']
 let g:indentLine_leadingSpaceEnabled = 0
-let g:indentLine_leadingSpaceChar = '?'
+"let g:indentLine_leadingSpaceChar = '?'
 " ----------------------------------------------------------------------------
 " }}}
 
@@ -840,7 +630,7 @@ let g:vimtex_quickfix_latexlog = {
 
 
 
-
+set conceallevel=0
 
 
 
