@@ -1,18 +1,18 @@
-#  ____               _     _            _       _ _____ 
-# / ___|___  _ __ ___| |__ (_)_ __   ___( )___  (_)___ / 
-#| |   / _ \| '__/ __| '_ \| | '_ \ / _ \// __| | | |_ \ 
+#  ____               _     _            _       _ _____
+# / ___|___  _ __ ___| |__ (_)_ __   ___( )___  (_)___ /
+#| |   / _ \| '__/ __| '_ \| | '_ \ / _ \// __| | | |_ \
 #| |__| (_) | |  \__ \ | | | | | | |  __/ \__ \ | |___) |
-# \____\___/|_|  |___/_| |_|_|_| |_|\___| |___/ |_|____/ 
-#                                                        
-#                  __ _                       _   _             
-#  ___ ___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __  
-# / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \ 
+# \____\___/|_|  |___/_| |_|_|_| |_|\___| |___/ |_|____/
+#
+#                  __ _                       _   _
+#  ___ ___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __
+# / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \
 #| (_| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | |
 # \___\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
-#                       |___/                                   
+#                       |___/
 #
 #
-# https://github.com/corshine-official
+# https://github.com/rdvcorshine
 
 set $mod Mod4
 
@@ -24,14 +24,14 @@ font pango:monospace 8
 
 # Use pactl to adjust volume in PulseAudio.
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% 
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle 
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle 
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse set Master 10%+ unmute
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse set Master 10%- unmute
 bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle 
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # playerctl
 bindsym XF86AudioPlay exec playerctl play
@@ -47,10 +47,10 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec kitty
 
 # start some application
-bindsym $mod+Shift+w exec --no-startup-id brave
+bindsym $mod+Shift+w exec --no-startup-id firefox
 bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
 bindsym $mod+Shift+m exec --no-startup-id rambox
@@ -199,7 +199,7 @@ bindsym $mod+r mode "resize"
 #        status_command i3status
 #}
 
-# lock screen 
+# lock screen
 bindsym $mod+shift+x exec betterlockscreen -l blur
 
 # Bind print screen
@@ -207,19 +207,19 @@ bindsym Print exec flameshot
 exec --no-startup-id xfce4-clipman
 
 # Borders red and blue
-#client.focused #EA0C47 #EA0C47 #EA0C47 #EA0C47    #EA0C47
+#client.focused #FFC858 #FFC858 #FFC858 #FFC858    #FFC858
 #client.unfocused #04A2D2 #04A2D2 #04A2D2 #04A2D2	#04A2D2
 #client.focused_inactive #04A2D2 #04A2D2 #04A2D2 #04A2D2		#04A2D2
 
 # Borders red white
-client.focused #EA0C47 #EA0C47 #EA0C47 #EA0C47    #EA0C47
+client.focused #FF79C6 #FF79C6 #FF79C6 #FF79C6    #FF79C6
 client.unfocused #FFFFFF #FFFFFF #FFFFFF #FFFFFF	#FFFFFF
 client.focused_inactive #FFFFFF #FFFFFF #FFFFFF #FFFFFF		#FFFFFF
 
 # Borders pink white
-client.focused #F12B7A #F12B7A #F12B7A #F12B7A    #F12B7A
-client.unfocused #FFFFFF #FFFFFF #FFFFFF #FFFFFF	#FFFFFF
-client.focused_inactive #FFFFFF #FFFFFF #FFFFFF #FFFFFF		#FFFFFF
+#client.focused #F12B7A #F12B7A #F12B7A #F12B7A    #F12B7A
+#client.unfocused #FFFFFF #FFFFFF #FFFFFF #FFFFFF	#FFFFFF
+#client.focused_inactive #FFFFFF #FFFFFF #FFFFFF #FFFFFF		#FFFFFF
 
 # Borders red and black
 #client.focused #EA0C47 #EA0C47 #EA0C47 #EA0C47    #EA0C47
@@ -261,9 +261,9 @@ gaps outer 5
 popup_during_fullscreen smart
 
 # disable mouse while typing
-exec syndaemon -i 0.5 -d -K 
+exec syndaemon -i 0.5 -d -K
 
-# startup 
+# startup
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id picom &
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/keren.jpg
@@ -271,11 +271,12 @@ exec --no-startup-id picom &
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/asyu1.png
 #exec --no-startup-id wal -i ~/Pictures/WallpaperArch/mmq.png
 #exec --no-startup-id wal -i ~/Pictures/WallpaperArch/pyramid.png
-exec --no-startup-id wal -i ~/Pictures/WallpaperArch/pinket-moon-4k-gh.png
+exec --no-startup-id wal -i ~/Pictures/WallpaperArch/arch_corshine.png
 
 
 exec --no-startup-id nm-applet
 exec --no-startup-id flameshot
+exec --no-startup-id barrier
 exec_always --no-startup-id ~/.config/dunst/launch.sh
 
 #walfeh
