@@ -4,9 +4,11 @@ let s:cpo_save=&cpo
 set cpo&vim
 inoremap <silent> <expr> <Plug>(coc-snippets-expand-jump) coc#_insert_key('request', 'snippets-expand-jump', 1)
 inoremap <silent> <expr> <Plug>(coc-snippets-expand) coc#_insert_key('request', 'snippets-expand', 1)
-inoremap <silent> <expr> <BS> coc#_insert_key('request', '6cf1b49b-a647-11ea-83d6-f3e27c7983bb')
+inoremap <silent> <expr> <BS> coc#_insert_key('request', '5593f4e0-b473-11ea-9b60-fff82c5ce97b')
 inoremap <silent> <Plug>(table-mode-tableize) |:call tablemode#TableizeInsertMode()a
 inoremap <silent> <Plug>CocRefresh =coc#_complete()
+inoremap <silent> <F25> :silent doautocmd <nomodeline> FocusGained %
+inoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %
 inoremap <silent> <Plug>ragtagXmlV ="&#".getchar().";"
 noremap! <F35> 
 noremap! <F34> 
@@ -135,11 +137,6 @@ nmap ,  :nohlsearch
 nnoremap ,d :bp:bd! #
 nmap ,p :bp
 nmap ,n :bn
-nmap ,es :so $MYVIMRC
-nmap ,eo :e ~/.vim/plugged/vim-orgmode/doc/orgguide.txt
-nmap ,eu :e ~/.vim/plugged/utl.vim/plugin/utl_rc.vim
-nmap ,ed :e ~/dex/bandithijo.com/_drafts/2018-01-01-format-penulisan-post.md
-nmap ,ev :e ~/.vimrc
 vnoremap / /\v
 nnoremap / /\v
 nnoremap N Nzzzv
@@ -172,7 +169,6 @@ nnoremap <silent> <Plug>(coc-git-commit) :call coc#rpc#notify('doKeymap', ['gi
 nnoremap <silent> <Plug>(coc-git-chunkinfo) :call coc#rpc#notify('doKeymap', ['git-chunkinfo'])
 nnoremap <silent> <Plug>(coc-git-prevchunk) :call coc#rpc#notify('doKeymap', ['git-prevchunk'])
 nnoremap <silent> <Plug>(coc-git-nextchunk) :call coc#rpc#notify('doKeymap', ['git-nextchunk'])
-nnoremap <SNR>132_: :=v:count ? v:count : ''
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
 nnoremap <silent> <Plug>(table-mode-sort) :call tablemode#spreadsheet#Sort('')
@@ -194,8 +190,8 @@ nnoremap <silent> <Plug>(table-mode-realign) :call tablemode#table#Realign('.')
 xnoremap <silent> <Plug>(table-mode-tableize-delimiter) :call tablemode#TableizeByDelimiter()
 xnoremap <silent> <Plug>(table-mode-tableize) :Tableize
 nnoremap <silent> <Plug>(table-mode-tableize) :Tableize
-xnoremap <SNR>79_VisualNrrwBang :call nrrwrgn#NrrwRgn(visualmode(),'!')
-xnoremap <SNR>79_VisualNrrwRgn :call nrrwrgn#NrrwRgn(visualmode(),'')
+xnoremap <SNR>77_VisualNrrwBang :call nrrwrgn#NrrwRgn(visualmode(),'!')
+xnoremap <SNR>77_VisualNrrwRgn :call nrrwrgn#NrrwRgn(visualmode(),'')
 xmap <C-X> <Plug>SpeedDatingDown
 xmap <C-A> <Plug>SpeedDatingUp
 nmap <C-X> <Plug>SpeedDatingDown
@@ -245,6 +241,12 @@ nnoremap <Plug>(coc-codelens-action) :call       CocActionAsync('codeLensActio
 nnoremap <Plug>(coc-range-select) :call       CocAction('rangeSelect',     '', v:true)
 vnoremap <Plug>(coc-range-select-backward) :call       CocAction('rangeSelect',     visualmode(), v:false)
 vnoremap <Plug>(coc-range-select) :call       CocAction('rangeSelect',     visualmode(), v:true)
+vnoremap <silent> <F25> :silent doautocmd <nomodeline> FocusGained %gv
+vnoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %gv
+onoremap <silent> <F25> :silent doautocmd <nomodeline> FocusGained %
+onoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %
+nnoremap <silent> <F25> :doautocmd <nomodeline> FocusGained %
+nnoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %
 nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"
 vmap <C-Y>c <Plug>(emmet-code-pretty)
 vnoremap <Plug>(emmet-code-pretty) :call emmet#codePretty()
@@ -347,24 +349,23 @@ imap d <Plug>(emmet-balance-tag-inward)
 imap u <Plug>(emmet-update-tag)
 imap ; <Plug>(emmet-expand-word)
 imap , <Plug>(emmet-expand-abbr)
-inoremap <silent> <expr> " coc#_insert_key('request', '6cf1b499-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> ' coc#_insert_key('request', '6cf1b498-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> ( coc#_insert_key('request', '6cf1b490-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> ) coc#_insert_key('request', '6cf1b491-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> < coc#_insert_key('request', '6cf1b496-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> > coc#_insert_key('request', '6cf1b497-a647-11ea-83d6-f3e27c7983bb')
+inoremap <silent> <expr> " coc#_insert_key('request', '5593cdd9-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> ' coc#_insert_key('request', '5593cdd8-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> ( coc#_insert_key('request', '5593cdd0-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> ) coc#_insert_key('request', '5593cdd1-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> < coc#_insert_key('request', '5593cdd6-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> > coc#_insert_key('request', '5593cdd7-b473-11ea-9b60-fff82c5ce97b')
 cmap Q qa
-inoremap <silent> <expr> [ coc#_insert_key('request', '6cf1b492-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> ] coc#_insert_key('request', '6cf1b493-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> ` coc#_insert_key('request', '6cf1b49a-a647-11ea-83d6-f3e27c7983bb')
+inoremap <silent> <expr> [ coc#_insert_key('request', '5593cdd2-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> ] coc#_insert_key('request', '5593cdd3-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> ` coc#_insert_key('request', '5593cdda-b473-11ea-9b60-fff82c5ce97b')
 imap jj 
 cmap w!! w !sudo tee % >/dev/null
-inoremap <silent> <expr> { coc#_insert_key('request', '6cf1b494-a647-11ea-83d6-f3e27c7983bb')
-inoremap <silent> <expr> } coc#_insert_key('request', '6cf1b495-a647-11ea-83d6-f3e27c7983bb')
+inoremap <silent> <expr> { coc#_insert_key('request', '5593cdd4-b473-11ea-9b60-fff82c5ce97b')
+inoremap <silent> <expr> } coc#_insert_key('request', '5593cdd5-b473-11ea-9b60-fff82c5ce97b')
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
-set background=dark
 set backspace=indent,eol,start
 set backupdir=~/.cache/vim/backup//
 set directory=~/.cache/vim/swap//
@@ -377,7 +378,7 @@ set infercase
 set laststatus=2
 set pyxversion=3
 set ruler
-set runtimepath=~/.vim,~/.vim/pack/coc/start/coc.nvim,~/.vim/plugged/nerdtree,~/.vim/plugged/lightline.vim,~/.vim/plugged/lightline-bufferline,~/.vim/plugged/vim-airline,~/.vim/plugged/vim-airline-themes,~/.vim/plugged/vim-gitgutter,~/.vim/plugged/vim-fugitive,~/.fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-better-whitespace,~/.vim/plugged/emmet-vim,~/.vim/plugged/vim-javascript,~/.vim/plugged/vim-json,~/.vim/plugged/vim-graphql,~/.vim/plugged/vim-rsi,~/.vim/plugged/vim-ragtag,~/.vim/plugged/tagbar,~/.vim/plugged/vim-commentary,~/.vim/plugged/sgmlendtag,~/.vim/plugged/vim-tmux-focus-events,~/.vim/plugged/vim-markdown,~/.vim/plugged/markdown-preview.nvim,~/.vim/plugged/vim-devicons,~/.vim/plugged/vim-liquid,~/.vim/plugged/coc.nvim,~/.vim/plugged/vim-rails,~/.vim/plugged/vim-ruby,~/.vim/plugged/eruby.vim,~/.vim/plugged/vim-bundler,~/.vim/plugged/indentLine,~/.vim/plugged/vim-jsx-pretty,~/.vim/plugged/vim-haml,~/.vim/plugged/vim-colorschemes,~/.vim/plugged/restore_view.vim,~/.vim/plugged/vim-orgmode,~/.vim/plugged/Vimball,~/.vim/plugged/vim-speeddating,~/.vim/plugged/NrrwRgn,~/.vim/plugged/utl.vim,~/.vim/plugged/vim-table-mode,~/.vim/plugged/vim-notgrep,~/.vim/plugged/vim-ruby-minitest,~/.vim/plugged/vimtex,/usr/share/vim/vimfiles,/usr/share/vim/vim82,/usr/share/vim/vimfiles/after,~/.vim/plugged/vim-javascript/after,~/.vim/plugged/vim-graphql/after,~/.vim/plugged/vim-markdown/after,~/.vim/plugged/vim-rails/after,~/.vim/plugged/indentLine/after,~/.vim/plugged/vim-ruby-minitest/after,~/.vim/plugged/vimtex/after,~/.vim/after,~/.config/coc/extensions/node_modules/coc-snippets
+set runtimepath=~/.vim,~/.vim/pack/coc/start/coc.nvim,~/.vim/plugged/nerdtree,~/.vim/plugged/vim-nerdtree-syntax-highlight,~/.vim/plugged/nerdtree-git-plugin,~/.vim/plugged/vim-airline,~/.vim/plugged/vim-airline-themes,~/.vim/plugged/vim-gitgutter,~/.vim/plugged/vim-fugitive,~/.fzf,~/.vim/plugged/fzf.vim,~/.vim/plugged/vim-better-whitespace,~/.vim/plugged/emmet-vim,~/.vim/plugged/vim-javascript,~/.vim/plugged/vim-json,~/.vim/plugged/vim-graphql,~/.vim/plugged/vim-rsi,~/.vim/plugged/vim-ragtag,~/.vim/plugged/tagbar,~/.vim/plugged/vim-commentary,~/.vim/plugged/sgmlendtag,~/.vim/plugged/vim-tmux-focus-events,~/.vim/plugged/vim-markdown,~/.vim/plugged/markdown-preview.nvim,~/.vim/plugged/vim-devicons,~/.vim/plugged/vim-liquid,~/.vim/plugged/coc.nvim,~/.vim/plugged/vim-rails,~/.vim/plugged/vim-ruby,~/.vim/plugged/eruby.vim,~/.vim/plugged/vim-bundler,~/.vim/plugged/indentLine,~/.vim/plugged/vim-jsx-pretty,~/.vim/plugged/vim-haml,~/.vim/plugged/vim-colorschemes,~/.vim/plugged/restore_view.vim,~/.vim/plugged/vim-orgmode,~/.vim/plugged/Vimball,~/.vim/plugged/vim-speeddating,~/.vim/plugged/NrrwRgn,~/.vim/plugged/utl.vim,~/.vim/plugged/vim-table-mode,~/.vim/plugged/vim-notgrep,~/.vim/plugged/vim-ruby-minitest,~/.vim/plugged/vimtex,/usr/share/vim/vimfiles,/usr/share/vim/vim82,/usr/share/vim/vimfiles/after,~/.vim/plugged/vim-nerdtree-syntax-highlight/after,~/.vim/plugged/vim-javascript/after,~/.vim/plugged/vim-graphql/after,~/.vim/plugged/vim-markdown/after,~/.vim/plugged/vim-rails/after,~/.vim/plugged/indentLine/after,~/.vim/plugged/vim-jsx-pretty/after,~/.vim/plugged/vim-ruby-minitest/after,~/.vim/plugged/vimtex/after,~/.vim/after,~/.config/coc/extensions/node_modules/coc-snippets
 set shiftround
 set shiftwidth=4
 set showtabline=2
@@ -385,7 +386,7 @@ set softtabstop=4
 set splitbelow
 set splitright
 set suffixes=.bak,~,.o,.info,.swp,.aux,.bbl,.blg,.brf,.cb,.dvi,.idx,.ilg,.ind,.inx,.jpg,.log,.out,.png,.toc
-set tabline=%!lightline#tabline()
+set tabline=%!airline#extensions#tabline#get()
 set tabstop=4
 set ttimeout
 set ttimeoutlen=50
@@ -395,15 +396,15 @@ let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/ARCH-CORSHINE
+cd ~/
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
 argglobal
 %argdel
-$argadd corshine.sh
-edit corshine.sh
+$argadd .zshrc
+edit .zshrc
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -439,8 +440,8 @@ setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=#%s
+setlocal comments=:#
+setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=inc
 setlocal conceallevel=2
@@ -455,10 +456,10 @@ setlocal define=
 setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
-setlocal errorformat=
+setlocal errorformat=%f:\ line\ %l:\ %m
 setlocal expandtab
-if &filetype != 'sh'
-setlocal filetype=sh
+if &filetype != 'zsh'
+setlocal filetype=zsh
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -472,7 +473,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=cqt
+setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
@@ -484,13 +485,13 @@ setlocal indentexpr=GetShIndent()
 setlocal indentkeys=0{,0},0),0],!^F,o,O,e,0=then,0=do,0=else,0=elif,0=fi,0=esac,0=done,0=end,),0=;;,0=;&,0=fin,0=fil,0=fip,0=fir,0=fix
 setlocal infercase
 setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
+setlocal keywordprg=:RunHelp
 setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
 setlocal nolist
 setlocal makeencoding=
-setlocal makeprg=
+setlocal makeprg=zsh\ -n\ --\ %:S
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
 setlocal modifiable
@@ -525,8 +526,8 @@ setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'sh'
-setlocal syntax=sh
+if &syntax != 'zsh'
+setlocal syntax=zsh
 endif
 setlocal tabstop=4
 setlocal tagcase=
@@ -547,14 +548,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 9 - ((8 * winheight(0) + 28) / 56)
+let s:l = 75 - ((54 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-9
-normal! 014|
+75
+normal! 024|
 tabnext 1
-badd +0 corshine.sh
+badd +0 .zshrc
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -566,7 +567,6 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &so = s:so_save | let &siso = s:siso_save
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

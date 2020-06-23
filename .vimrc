@@ -1,7 +1,11 @@
-
+set clipboard=unnamed
+set clipboard=unnamedplus
 set nocompatible               " be iMproved, required
 set t_Co=256                   " set terminal 256 color
 
+" Plug {{{
+" ----------------------------------------------------------------------------
+"
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -27,8 +31,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-liquid'
-"Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
-" Or install latest release tag
 Plug 'neoclide/coc.nvim', {'do': './install.sh'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tpope/vim-rails'
@@ -51,6 +53,11 @@ Plug 'sunaku/vim-ruby-minitest'
 Plug 'lervag/vimtex'
 
 call plug#end()
+
+
+" ----------------------------------------------------------------------------
+"  }}}
+"
 syntax enable
 filetype plugin indent on
 set encoding=UTF-8
@@ -92,11 +99,11 @@ set splitbelow splitright
 let mapleader = ","
 let maplocalleader = ','
 
-nmap <leader>ev :e ~/.vimrc<cr>
-nmap <leader>ed :e ~/dex/bandithijo.com/_drafts/2018-01-01-format-penulisan-post.md<cr>
-nmap <leader>eu :e ~/.vim/plugged/utl.vim/plugin/utl_rc.vim<cr>
-nmap <leader>eo :e ~/.vim/plugged/vim-orgmode/doc/orgguide.txt<cr>
-nmap <leader>es :so $MYVIMRC
+"nmap <leader>ev :e ~/.vimrc<cr>
+"nmap <leader>ed :e ~/dex/bandithijo.com/_drafts/2018-01-01-format-penulisan-post.md<cr>
+"nmap <leader>eu :e ~/.vim/plugged/utl.vim/plugin/utl_rc.vim<cr>
+"nmap <leader>eo :e ~/.vim/plugged/vim-orgmode/doc/orgguide.txt<cr>
+"nmap <leader>es :so $MYVIMRC
 
 nmap <leader>n :bn<cr>
 nmap <leader>p :bp<cr>
@@ -114,7 +121,7 @@ autocmd BufWritePre * %s/\s\+$//e
 
 imap <C-BS> <C-W>
 
-autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
+"autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
 
 map <leader>C :w! \| !compiler <c-r>%<CR>
 tnoremap <Esc> <C-\><C-n>
@@ -180,9 +187,9 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tmuxline#enabled = 0
 
 " Vim-Airline-Theme
-"let g:airline_theme='serene'
-"let g:airline_theme='night_owl'
-let g:airline_theme='zenburn'
+"let g:airline_theme='hybridline'
+let g:airline_theme='night_owl'
+"let g:airline_theme='zenburn'
 
 let s:saved_theme = []
 let g:airline_theme_patch_func = 'AirlineThemePatch'
@@ -624,35 +631,6 @@ let g:vimtex_quickfix_latexlog = {
       \}
 " ----------------------------------------------------------------------------
 " }}}
-
-
-
-
-
-
-set conceallevel=0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 " }}}

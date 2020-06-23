@@ -8,22 +8,46 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-8
+6
 normal! zo
-65
+173
 normal! zo
-77
+210
 normal! zo
-115
+221
 normal! zo
-381
+230
 normal! zo
-let s:l = 145 - ((55 * winheight(0) + 28) / 56)
+295
+normal! zo
+370
+normal! zo
+384
+normal! zo
+390
+normal! zo
+396
+normal! zo
+501
+normal! zo
+512
+normal! zo
+520
+normal! zo
+527
+normal! zo
+535
+normal! zo
+558
+normal! zo
+589
+normal! zo
+let s:l = 639 - ((49 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-145
-normal! 04|
+639
+normal! 0
 let &so = s:so_save | let &siso = s:siso_save
 nohlsearch
 doautoall SessionLoadPost
