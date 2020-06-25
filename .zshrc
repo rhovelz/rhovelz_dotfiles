@@ -20,6 +20,9 @@ export ZSH="/home/corshine/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_THEME="bullet-train"
+#ZSH_THEME="honukai"
+
+POWERLEVEL9k_MODE="nerdfont-complete"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -41,7 +44,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=3
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
@@ -79,7 +82,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,7 +119,7 @@ alias unimatrix="unimatrix -n -s 96 -l o"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
-alias ls='ls --color=auto'
+alias ls='lsd --color=auto'
 alias l='lsd -lah --group-dirs first'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -126,4 +129,10 @@ alias cat='bat'
 alias bat='bat --page=never'
 alias bat='bat --theme=ansi-dark'
 
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+wal -r && clear
 
