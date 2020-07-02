@@ -1,0 +1,89 @@
+.theme-dark {
+    --background-primary: #282A36;
+    --background-secondary: #282A36;
+    --bg: #282A36;
+    --bg-overlay: #282A36;
+    --accent: #282A36;
+    --accent-bright: #282A36;
+    --accent-back: #282A36;
+    --accent-back-bright: #282A36;
+    --icon-color: #282A36;
+    --link-color: #292D3F;
+    --link-color-hover: #282A36;
+    --popup-background: #282A36;
+    --popup-highlight: #282A36;
+    --unread-color: var(--accent-bright);
+    --typing-height: 10px;
+    --gift-button: flex;
+    --gif-picker: flex;
+    --background-secondary-alt: #282A36;
+    --background-accent: #FE2E64;
+    --background-tertiary: #282A36;
+    --channeltextarea-background: #282A36;
+    --main-font: Fira Code;
+    --scrollbar-auto-thumb: #282A36;
+    --scrollbar-auto-track: #282A36;
+
+    --background-tertiary: #282A36;
+    --background-accent: #282A36;
+    --header-secondary: #282A36;
+    --background-mentioned: #282A36;
+    --background-mentioned-hover: #282A36;
+    --background-floating: #282A36;
+
+
+}}
+
+/* font config *
+ * ----------- */
+::placeholder, body, button, input, select, textarea {
+    font-family: var(--main-font);
+}
+
+code {
+    font-family: var(--main-font);
+    font-size: 1rem !important;
+}
+
+
+/*scrollbar*/
+.da-messagesWrapper .da-scroller::-webkit-scrollbar,
+.da-messagesWrapper .da-scroller::-webkit-scrollbar-track-piece {
+    background-color: var(--background-tertiary) !important;
+    border-color: rgba(0,0,0,0) !important;
+}
+
+.da-scrollerThemed .da-scroller::-webkit-scrollbar-thumb,
+.da-scrollerWrap .da-scroller::-webkit-scrollbar-thumb {
+    background-color: var(--background-secondary) !important;
+    border-color: var(--background-tertiary) !important;
+}
+
+.theme-dark .scrollerThemed-2oenus.themedWithTrack-q8E3vB .scroller-2FKFPG::-webkit-scrollbar-track-piece {
+    background-color: var(--background-primary) !important;
+    border-color: rgba(0,0,0,0) !important;
+}
+
+.theme-dark .selectorSelected-1_M1WV, .newMessagesBar-mujexs,
+.theme-dark .searchAnswer-3Dz2-q, .theme-dark .searchFilter-2ESiM3,
+.theme-dark .progress-1IcQ3A, .themeDefault-24hCdX,
+.theme-dark .lookFilled-1Gx00P.colorPrimary-3b3xI6 {
+    background-color: var(--background-accent);
+}
+
+.theme-dark .container-3ayLPN {
+    background-color: var(--background-tertiary);
+}
+
+.theme-dark .option-96V44q.selected-rZcOL- {
+    background-color: var(--background-floating);
+}
+
+.theme-dark .pageIndicator-1gAbyA, .theme-dark .pageButtonNext-V2kUq0,
+.theme-dark .pageButtonPrev-1Y-47D {
+    border-color: var(--background-accent);
+}
+
+.tabBody-3YRQ8W {
+    background-color: var(--background-primary);
+}
