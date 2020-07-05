@@ -47,13 +47,12 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec alacritty
 
 # start some application
-bindsym $mod+Shift+w exec --no-startup-id firefox
+bindsym $mod+Shift+w exec --no-startup-id brave
 bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
-bindsym $mod+Shift+m exec --no-startup-id rambox
 bindsym $mod+Shift+d exec --no-startup-id discord
 
 
@@ -70,7 +69,7 @@ bindsym $mod+Shift+q kill
 
 # use rofi instead of dmenu
 #bindsym $mod+d exec rofi -show drun
-bindsym $mod+d exec rofi -show drun -show-icons -modi drun -font "MesloLGS NF Bold 10"
+bindsym $mod+d exec rofi -show drun -display-run '#' -display-drun '#' -show-icons -modi drun -font "hack 12"
 
 # change focus
 bindsym $mod+j focus left
@@ -206,32 +205,27 @@ bindsym $mod+shift+x exec betterlockscreen -l blur
 bindsym Print exec flameshot
 exec --no-startup-id xfce4-clipman
 
-# Borders red and blue
-#client.focused #FFC858 #FFC858 #FFC858 #FFC858    #FFC858
-#client.unfocused #04A2D2 #04A2D2 #04A2D2 #04A2D2	#04A2D2
-#client.focused_inactive #04A2D2 #04A2D2 #04A2D2 #04A2D2		#04A2D2
+
+##--DRACULA & WHITE--##
 
 # Borders red white
-client.focused #FF79C6 #FF79C6 #FF79C6 #FF79C6    #FF79C6
-client.unfocused #FFFFFF #FFFFFF #FFFFFF #FFFFFF	#FFFFFF
-client.focused_inactive #FFFFFF #FFFFFF #FFFFFF #FFFFFF		#FFFFFF
+#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+#client.unfocused #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6	#E6E6E6
+#client.focused_inactive #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6		#E6E6E6
 
-# Borders pink white
-#client.focused #F12B7A #F12B7A #F12B7A #F12B7A    #F12B7A
-#client.unfocused #FFFFFF #FFFFFF #FFFFFF #FFFFFF	#FFFFFF
-#client.focused_inactive #FFFFFF #FFFFFF #FFFFFF #FFFFFF		#FFFFFF
+##--DRACULA PURE--##
 
-# Borders red and black
-#client.focused #EA0C47 #EA0C47 #EA0C47 #EA0C47    #EA0C47
-#client.unfocused #090913 #090913 #090913 #090913	#090913
-#client.focused_inactive #090913 #090913 #090913 #090913		#090913
+# Borders red white
+#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+#client.unfocused #9174BF #9174BF #9174BF #9174BF        #9174BF
+#client.focused_inactive #9174BF #9174BF #9174BF #9174BF         #9174BF
 
-# Borders red and white
-#client.focused #EA0C47 #EA0C47 #EA0C47 #EA0C47    #EA0C47
-#client.unfocused #FFFFFF #FFFFFF #FFFFFF #FFFFFF	#FFFFFF
-#client.focused_inactive #FFFFFF #FFFFFF #FFFFFF #FFFFFF		#FFFFFF
+##--DRACULA FOLLOW PICOM--##
 
-
+# Borders red white
+client.focused #282A36 #282A36 #282A36 #282A36    #282A36
+client.unfocused #282A36 #282A36 #282A36 #282A36        #282A36
+client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
 
 
 
@@ -254,8 +248,8 @@ new_window pixel 2
 new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 15
-gaps outer 5
+gaps inner 30
+gaps outer 0
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -271,8 +265,12 @@ exec --no-startup-id picom &
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/asyu1.png
 #exec --no-startup-id wal -i ~/Pictures/WallpaperArch/mmq.png
 #exec --no-startup-id wal -i ~/Pictures/WallpaperArch/pyramid.png
-exec --no-startup-id wal -i ~/Pictures/WallpaperArch/arch_corshine.png
+#exec --no-startup-id wal -i ~/Pictures/WallpaperArch/dracula1.png
+exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantul.jpg
 
+## BATTERY NOTIF
+exec --no-startup-id /home/corshine/ARCH-CORSHINE/i3-battery-popup-git/src/i3-battery-popup-git/i3-battery-popup -n -t 2m
+for_window [title="Battery Warning"] sticky enable
 
 exec --no-startup-id nm-applet
 exec --no-startup-id flameshot
