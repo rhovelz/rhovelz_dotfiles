@@ -23,14 +23,12 @@
     --main-font: Fira Code;
     --scrollbar-auto-thumb: #282A36;
     --scrollbar-auto-track: #282A36;
-
     --background-tertiary: #282A36;
     --background-accent: #282A36;
     --header-secondary: #282A36;
     --background-mentioned: #ffffff20;
     --background-mentioned-hover: #ffffff30;
     --background-floating: #282A36;
-
 
 }}
 
@@ -45,6 +43,8 @@ code {
     font-size: 1rem !important;
 }
 
+.hljs { color: #f8f8f2 }
+.markup-2BOw-j code { background: #44475a !important; }
 
 /*scrollbar*/
 .da-messagesWrapper .da-scroller::-webkit-scrollbar,
