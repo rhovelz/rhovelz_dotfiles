@@ -26,7 +26,7 @@ Plug 'tpope/vim-ragtag'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 Plug 'ervandew/sgmlendtag'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+"Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'ryanoasis/vim-devicons'
@@ -51,6 +51,13 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'idbrii/vim-notgrep'
 Plug 'sunaku/vim-ruby-minitest'
 Plug 'lervag/vimtex'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'kaicataldo/material.vim'
+
+
+
+
+
 
 call plug#end()
 
@@ -171,7 +178,7 @@ nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
 
 
 " Vim-Airline {{{
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -184,12 +191,11 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#hunks#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#tmuxline#enabled = 0
+"let g:airline#extensions#tmuxline#enabled = 0
 
 " Vim-Airline-Theme
 "let g:airline_theme='hybridline'
-let g:airline_theme='night_owl'
-"let g:airline_theme='zenburn'
+let g:airline_theme='dracula'
 
 let s:saved_theme = []
 let g:airline_theme_patch_func = 'AirlineThemePatch'
