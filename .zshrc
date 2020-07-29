@@ -129,10 +129,23 @@ alias cat='bat'
 alias bat='bat --page=never'
 alias bat='bat --theme=ansi-dark'
 
+## tor-router
+
+alias starttor='sudo systemctl start tor.service tor-router.service'
+alias stoptor='sudo systemctl stop tor.service tor-router.service'
+alias restarttor='sudo systemctl restart tor.service tor-router.service'
+
+
+
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#wal -r && clear
-
+## LAZY GIT
+#
+function corshinegit() {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
