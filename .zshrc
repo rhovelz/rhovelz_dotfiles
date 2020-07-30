@@ -128,6 +128,10 @@ alias diff='diff --color=auto'
 alias cat='bat'
 alias bat='bat --page=never'
 alias bat='bat --theme=ansi-dark'
+alias htop='htop | lolcat'
+alias ranger='ranger | lolcat'
+
+
 
 ## tor-router
 
