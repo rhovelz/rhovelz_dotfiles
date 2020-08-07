@@ -18,9 +18,9 @@ export ZSH="/home/corshine/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_THEME="bullet-train"
-#ZSH_THEME="honukai"
+ZSH_THEME="honukai"
 #ZSH_THEME="dracula"
 
 POWERLEVEL9k_MODE="nerdfont-complete"
@@ -126,9 +126,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
-alias cat='bat'
-alias bat='bat --page=never'
-alias bat='bat --theme=ansi-dark'
 alias htop='htop | lolcat'
 #alias ranger='ranger | lolcat'
 

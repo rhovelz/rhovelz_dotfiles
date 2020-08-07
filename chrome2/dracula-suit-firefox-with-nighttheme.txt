@@ -1,3 +1,0 @@
-Firefox-userChrome: #282a36
-
-Nighttheme: #8689A3
