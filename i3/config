@@ -16,7 +16,8 @@
 
 set $mod Mod4
 
-font pango:monospace 8
+#font pango:monospace 8
+font pango:Hack 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -47,7 +48,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec alacritty -e zsh -c "tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -s CORSHINE"
 
 # start some application
 bindsym $mod+Shift+w exec --no-startup-id brave
@@ -69,7 +70,7 @@ bindsym $mod+Shift+q kill
 
 # use rofi instead of dmenu
 #bindsym $mod+d exec rofi -show drun
-bindsym $mod+d exec rofi -show drun -display-run '#' -display-drun '#' -show-icons -modi drun -font "hack 12"
+bindsym $mod+d exec rofi -show drun -display-run '#' -display-drun '#' -show-icons -modi drun -font "FiraCode 12"
 
 # change focus
 bindsym $mod+j focus left
@@ -123,9 +124,9 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 1: 
-set $ws2 2: 
-set $ws3 3: 
+set $ws1 1: 
+set $ws2 2: 
+set $ws3 3: 
 set $ws4 4: 
 set $ws5 5: 
 set $ws6 6: 
@@ -133,6 +134,8 @@ set $ws7 7: 
 set $ws8 8: 
 set $ws9 9: 
 set $ws10 10: 
+
+##--WORKSPACE--##
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -198,12 +201,10 @@ bindsym $mod+r mode "resize"
 #        status_command i3status
 #}
 
-# lock screen
+
+#--lock screen--##
 bindsym $mod+shift+x exec betterlockscreen -l blur
 
-# Bind print screen
-bindsym Print exec flameshot
-exec --no-startup-id xfce4-clipman
 
 
 ##--DRACULA & WHITE--##
@@ -248,8 +249,8 @@ new_window pixel 2
 new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 30
-gaps outer 0
+gaps inner 10
+gaps outer 10
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -257,25 +258,35 @@ popup_during_fullscreen smart
 # disable mouse while typing
 exec syndaemon -i 0.5 -d -K
 
-# startup
+#--STARTUP--#
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id picom &
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/keren.jpg
-#exec --no-startup-id wal -i ~/Pictures/WallpaperArch/machine.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/asyu1.png
-#exec --no-startup-id wal -i ~/Pictures/WallpaperArch/mmq.png
-#exec --no-startup-id wal -i ~/Pictures/WallpaperArch/pyramid.png
-#exec --no-startup-id wal -i ~/Pictures/WallpaperArch/dracula1.png
-exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantul.jpg
-
-## BATTERY NOTIF
-exec --no-startup-id /home/corshine/ARCH-CORSHINE/i3-battery-popup-git/src/i3-battery-popup-git/i3-battery-popup -n -t 2m
-for_window [title="Battery Warning"] sticky enable
-
 exec --no-startup-id nm-applet
 exec --no-startup-id flameshot
 exec --no-startup-id barrier
 exec_always --no-startup-id ~/.config/dunst/launch.sh
 
-#walfeh
-#exec --no-startup-id ~/.config/autostart/fehwal.sh
+
+##--WALLPAPER--##
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mountains2.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/june3.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/dracula1.png
+
+
+#--BATTERY-NOTIF--#
+exec --no-startup-id xfce4-power-manager
+
+#--SCREENSHOTS-WITH-SCROT--#
+
+# Save to /Pictures/Screenshots/
+bindsym Print exec flameshot gui
+exec --no-startup-id xfce4-clipman
+
+# Save selection screenshot to /Pictures/Screenshots
+bindsym --release Shift+Print exec scrot -q 100 -s -f ~/Pictures/screenshots/%Y-%m-%d-%H%M%S.png
+
+# Save selection screenshot to clipboard
+bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
+
