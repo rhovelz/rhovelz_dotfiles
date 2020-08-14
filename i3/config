@@ -51,10 +51,11 @@ floating_modifier $mod
 bindsym $mod+Return exec alacritty -e zsh -c "tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -s CORSHINE"
 
 # start some application
-bindsym $mod+Shift+w exec --no-startup-id brave
+bindsym $mod+Shift+w exec --no-startup-id firefox
 bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
 bindsym $mod+Shift+d exec --no-startup-id discord
+bindsym $mod+Shift+v exec --no-startup-id virtualbox
 
 
 
@@ -250,7 +251,7 @@ new_float pixel 3
 
 # Gaps (i3-gaps)
 gaps inner 10
-gaps outer 10
+gaps outer 5
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -273,7 +274,7 @@ exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mountains2.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/june3.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/dracula1.png
-
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
 
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
