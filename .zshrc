@@ -21,6 +21,7 @@ export ZSH="/home/corshine/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_THEME="bullet-train"
 #ZSH_THEME="honukai"
+#ZSH_THEME="dracula"
 
 POWERLEVEL9k_MODE="nerdfont-complete"
 
@@ -129,7 +130,7 @@ alias cat='bat'
 alias bat='bat --page=never'
 alias bat='bat --theme=ansi-dark'
 alias htop='htop | lolcat'
-alias ranger='ranger | lolcat'
+#alias ranger='ranger | lolcat'
 
 
 
@@ -141,8 +142,15 @@ alias restarttor='sudo systemctl restart tor.service tor-router.service'
 
 
 
+## EXPORT PATH
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH=$PATH:/home/corshine/.gem/ruby/2.7.0/bin
+export PATH=$PATH:/home/corshine/.local/bin
+
+
+
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -153,3 +161,6 @@ function corshinegit() {
     git commit -a -m "$1"
     git push
 }
+
+
+
