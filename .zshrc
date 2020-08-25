@@ -20,8 +20,7 @@ export ZSH="/home/corshine/.oh-my-zsh"
 
 #ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_THEME="bullet-train"
-ZSH_THEME="honukai"
-#ZSH_THEME="dracula"
+ZSH_THEME="dracula"
 
 POWERLEVEL9k_MODE="nerdfont-complete"
 
@@ -126,8 +125,20 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
-alias htop='htop | lolcat'
-#alias ranger='ranger | lolcat'
+
+
+# Navigation
+alias ..-'cd ..'
+alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+
+
+# reboot shutdown
+alias ssn="sudo shutdown now"
+alias sr="sudo reboot"
+
+
 
 
 
@@ -136,6 +147,10 @@ alias htop='htop | lolcat'
 alias starttor='sudo systemctl start tor.service tor-router.service'
 alias stoptor='sudo systemctl stop tor.service tor-router.service'
 alias restarttor='sudo systemctl restart tor.service tor-router.service'
+
+## Ruby
+PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
+
 
 
 
@@ -147,9 +162,7 @@ export PATH=$PATH:/home/corshine/.local/bin
 
 
 
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.config/.fzf/.fzf.zsh ] && source ~/.config/.fzf/.fzf.zsh
 
 ## LAZY GIT
 #
