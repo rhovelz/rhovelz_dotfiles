@@ -10,15 +10,19 @@ target            = list(original_file)
 target.insert(-4, 'X')
 target_file       = ''.join(target)
 color_profile     = "/usr/share/color/icc/colord/sRGB.icc"
-border_size       = "7"
-background_color  = "white" # "none" for transparent
-background_size   = "15"
-shadow_size       = "50x20+0+20"
+color_fg          = "#44475a"
+color_bg          = "#44475a"
+border_size       = "5"
+#background_color  = "" # "none" for transparent
+background_color  = "#282a36"
+background_size   = "20"
+shadow_size       = "70x20+0+20"
 font              = "JetBrains-Mono-Medium"
-font_size         = "15"
-color_fg          = "#ffffff"
-color_bg          = "#666666"
-author_position   = ["NorthEast", "+80+16"]
+font_size         = "12"
+color_fg          = "#FFFFFF"
+color_bg          = "#44475a"
+#color_bg          = "#282a36"
+author_position   = ["NorthEast", "+90+5"]
 author            = "Author: "+ \
                     os.popen("echo $USER").read().rstrip("\n")
 
@@ -64,4 +68,4 @@ if os.system("which optipng > /dev/null 2>&1"):
 
 list_file = os.popen("ls -p | grep -v /").read().split("\n")[:-1]
 last_file = list_file[-1]
-#os.system(f"rm -rf {original_file}")
+os.system(f"rm -rf {original_file}")
