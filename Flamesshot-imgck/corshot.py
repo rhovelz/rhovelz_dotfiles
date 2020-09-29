@@ -15,16 +15,17 @@ color_bg          = "#44475a"
 border_size       = "5"
 #background_color  = "" # "none" for transparent
 background_color  = "#282a36"
-background_size   = "20"
-shadow_size       = "70x20+0+20"
+background_size   = "1"
+#background_size   = "100"
+shadow_size       = "80x30+0+30"
 font              = "JetBrains-Mono-Medium"
-font_size         = "12"
+font_size         = "15"
 color_fg          = "#FFFFFF"
 color_bg          = "#44475a"
 #color_bg          = "#282a36"
-author_position   = ["NorthEast", "+90+5"]
+author_position   = ["NorthEast", "+90+22"]
 author            = "Author: "+ \
-                    os.popen("echo $USER").read().rstrip("\n")
+                    os.popen("echo Radivan-Corshine").read().rstrip("\n")
 
 os.system(f"""
 flameshot gui --raw > {original_file}
