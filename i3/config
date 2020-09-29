@@ -29,10 +29,20 @@ font pango:Hack 8
 #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse set Master 10%+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse set Master 10%- unmute
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 10%+ unmute && notify-send "Volume" "Volume Up"
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 10%- unmute && notify-send "Volume" "Volume Down"
 bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+#bindsym mod1+t exec --no-startup-id amixer set Capture toggle && notify-send "Microphone" "Microphone Toggled"
+#bindsym mod1+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send "Microphone" "Microphone Toggled"
+#bindsym mod1+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send "Microphone" "Microphone Toggled"
+#bindsym $mod+p exec --no-startup-id amixer set Capture toggle
+
+# Mute
+bindsym mod1+shift+m exec --no-startup-id pamixer --source 1 --get-mute -m && notify-send " MUTE"
+
+# Unmute
+bindsym mod1+shift+u exec --no-startup-id pamixer --source 1 -u && notify-send " UNMUTE"
 
 # playerctl
 bindsym XF86AudioPlay exec playerctl play
@@ -55,9 +65,7 @@ bindsym $mod+Shift+w exec --no-startup-id firefox
 bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
 bindsym $mod+Shift+d exec --no-startup-id discord
-bindsym $mod+Shift+v exec --no-startup-id virtualbox
-
-
+bindsym $mod+Shift+v exec --no-startup-id virt-manager
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -250,8 +258,8 @@ new_window pixel 2
 new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 10
-gaps outer 5
+gaps inner 7
+gaps outer 1
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -264,9 +272,9 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id picom &
 exec --no-startup-id nm-applet
 exec --no-startup-id flameshot
-exec --no-startup-id barrier
+#exec --no-startup-id barrier
 exec_always --no-startup-id ~/.config/dunst/launch.sh
-
+#exec_always --no-startup-id ~/.config/mic-config/launchmid-conf.sh
 
 ##--WALLPAPER--##
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
@@ -275,6 +283,8 @@ exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/june3.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/dracula1.png
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/taylor-smith-TawjNbs35C0-unsplash1.jpg
+
 
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
@@ -282,11 +292,11 @@ exec --no-startup-id xfce4-power-manager
 #--SCREENSHOTS-WITH-SCROT--#
 
 # Save to /Pictures/Screenshots/
-bindsym Print exec flameshot gui
+bindsym Print exec corshot
 exec --no-startup-id xfce4-clipman
 
 # Save selection screenshot to /Pictures/Screenshots
-bindsym --release Shift+Print exec scrot -q 100 -s -f ~/Pictures/screenshots/%Y-%m-%d-%H%M%S.png
+bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshine/Screenshots/%Y-%m-%d-%H%M%S.png
 
 # Save selection screenshot to clipboard
 bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
