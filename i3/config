@@ -29,20 +29,30 @@ font pango:Hack 8
 #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 10%+ unmute && notify-send "Volume" "Volume Up"
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 10%- unmute && notify-send "Volume" "Volume Down"
-bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
+#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 10%+ unmute && notify-send "Volume" "Volume Up"
+#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 10%- unmute && notify-send "Volume" "Volume Down"
+#bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 #bindsym mod1+t exec --no-startup-id amixer set Capture toggle && notify-send "Microphone" "Microphone Toggled"
 #bindsym mod1+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send "Microphone" "Microphone Toggled"
 #bindsym mod1+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send "Microphone" "Microphone Toggled"
 #bindsym $mod+p exec --no-startup-id amixer set Capture toggle
 
-# Mute
+# Mute Mic
 bindsym mod1+shift+m exec --no-startup-id pamixer --source 1 --get-mute -m && notify-send " MUTE"
 
-# Unmute
+# Unmute Mic
 bindsym mod1+shift+u exec --no-startup-id pamixer --source 1 -u && notify-send " UNMUTE"
+
+# Volume Up
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 10 --allow-boost && notify-send "VOLUME UP"
+
+# Volume Down
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 10 --allow-boost && notify-send "VOLUME DOWN"
+
+# Volume Mute
+bindsym XF86AudioMute exec --no-startup-id pamixer -t && notify-send "VOLUME MUTE"
+
 
 # playerctl
 bindsym XF86AudioPlay exec playerctl play
@@ -82,10 +92,10 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show drun -display-run '#' -display-drun '#' -show-icons -modi drun -font "FiraCode 12"
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -94,10 +104,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -106,10 +116,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym mod1+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym mod1+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -133,16 +143,6 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 1: 
-set $ws2 2: 
-set $ws3 3: 
-set $ws4 4: 
-set $ws5 5: 
-set $ws6 6: 
-set $ws7 7: 
-set $ws8 8: 
-set $ws9 9: 
-set $ws10 10: 
 
 ##--WORKSPACE--##
 
@@ -210,10 +210,19 @@ bindsym $mod+r mode "resize"
 #        status_command i3status
 #}
 
-
 #--lock screen--##
 bindsym $mod+shift+x exec betterlockscreen -l blur
 
+set $ws1 1: 
+set $ws2 2: 
+set $ws3 3: 
+set $ws4 4: 
+set $ws5 5: 
+set $ws6 6: 
+set $ws7 7: 
+set $ws8 8: 
+set $ws9 9: 
+set $ws10 10: 
 
 
 ##--DRACULA & WHITE--##
@@ -238,7 +247,6 @@ client.unfocused #282A36 #282A36 #282A36 #282A36        #282A36
 client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
 
 
-
 # class                         border          background      text            indicator       child_border
 #client.focused                  #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
 #client.focused_inactive         #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
@@ -250,7 +258,6 @@ client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
 #client.focused #FF79C6 #FF79C6 #FF79C6 #FF79C6    #FF79C6
 #client.focused #C50ED2 #C50ED2 #C50ED2 #C50ED2    #C50ED2
 
-
 #for_window [class=".*"] border pixel 1
 
 # Disable titlebar
@@ -258,7 +265,7 @@ new_window pixel 2
 new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 7
+gaps inner 10
 gaps outer 1
 
 # Enable popup during fullscreen
@@ -278,13 +285,13 @@ exec_always --no-startup-id ~/.config/dunst/launch.sh
 
 ##--WALLPAPER--##
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
-exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
+exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/oct2.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mountains2.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/june3.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/dracula1.png
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/taylor-smith-TawjNbs35C0-unsplash1.jpg
-
 
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
