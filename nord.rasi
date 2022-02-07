@@ -1,5 +1,7 @@
 /*Dracula theme based on the Purple official rofi theme*/
 
+##
+
 * {
     font: "JetBrainsMono Nerd Font 15";
     foreground: #f8f8f2;
