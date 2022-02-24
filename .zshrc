@@ -56,7 +56,7 @@ export UPDATE_ZSH_DAYS=3
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -82,7 +82,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,15 +138,11 @@ alias .4='cd ../../../..'
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot"
 
-
-
-
-
 ## tor-router
 
-alias starttor='sudo systemctl start tor.service tor-router.service'
-alias stoptor='sudo systemctl stop tor.service tor-router.service'
-alias restarttor='sudo systemctl restart tor.service tor-router.service'
+#alias starttor='sudo systemctl start tor.service tor-router.service'
+#alias stoptor='sudo systemctl stop tor.service tor-router.service'
+#alias restarttor='sudo systemctl restart tor.service tor-router.service'
 
 ## Ruby
 PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
@@ -173,4 +169,14 @@ function corshinegit() {
 }
 
 
+# START TMUX
+alias tmuxcorshine='tmux new -s CORSHINE \; split-window -h \; split-window -v \;'
 
+#Clean system
+#alias corshineclean='sudo bleachbit --clean system.cache system.localizations system.trash system.tmp'
+
+# Termbin
+alias tb="nc termbin.com 9999"
+#alias gpuNV='prime-offload && optimus-manager --switch nvidia --no-confirm'
+
+neofetch
