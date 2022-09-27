@@ -1,4 +1,4 @@
-# ShowCase of Corshine's dotfiles
+# ShowCase of Rhovelionz's dotfiles
 
 - My personal dot files and configs
 
