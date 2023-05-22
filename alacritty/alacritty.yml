@@ -34,8 +34,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 6
-    y: 6
+    x: 5
+    y: 3
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -113,11 +113,12 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
-    # family: JetBrains Mono
+    #family: JetBrains Mono
+    family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    family: FiraCode
+    # family: jetbrains mono
 
     # The `style` can be specified to pick a specific face.
 #    style: Regular
@@ -133,11 +134,11 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
-    # family: JetBrains Mono
+    family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
-    family: FiraCode
+    # family: jetbrains mono
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -152,11 +153,11 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
-    # family: JetBrains Mono
+    family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    family: FiraCode
+    # family: jetbrains mono
     # The `style` can be specified to pick a specific face.
 #    style: Italic
     style: Bold
@@ -172,22 +173,22 @@ font:
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
-    # family: JetBrains Mono
+    family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    family: FiraCode
+    # family: jetbrains mono
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
 
   # Point size
-  size: 10.0
+  size: 7
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
-    x: 1
-    y: 1
+    x: 0
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
@@ -222,7 +223,7 @@ colors:
   # Default colors
   primary:
     background: '0x282a36'
-    foreground: '0xf8f8f2'
+    foreground: '0xffffff'
 
     # Bright and dim foreground colors
     #
@@ -318,7 +319,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+window.opacity: 1.0
 # background_opacity: 0.95
 
 #selection:
@@ -559,22 +560,22 @@ background_opacity: 1.0
 # binding with the same triggers is defined. To unset a default binding, it can
 # be mapped to the `ReceiveChar` action. Alternatively, you can use `None` for
 # a no-op if you do not wish to receive input characters for that binding.
-key_bindings:
-    # (Windows, Linux, and BSD only)
-  - { key: V,        mods: Control|Shift, action: Paste            }
-  - { key: C,        mods: Control|Shift, action: Copy             }
-  - { key: Insert,   mods: Shift,         action: PasteSelection   }
-  - { key: Key0,     mods: Control,       action: ResetFontSize    }
-  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
-  - { key: Add,      mods: Control,       action: IncreaseFontSize }
-  - { key: Subtract, mods: Control,       action: DecreaseFontSize }
-  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
-
-  - { key: Paste,                    action: Paste                            }
-  - { key: Copy,                     action: Copy                             }
-  - { key: L,         mods: Control, action: ClearLogNotice                   }
-  - { key: L,         mods: Control, chars: "\x0c"                            }
-  - { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
-  - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
-  - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
-  - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
+#key_bindings:
+#    # (Windows, Linux, and BSD only)
+#  - { key: V,        mods: Control|Shift, action: Paste            }
+#  - { key: C,        mods: Control|Shift, action: Copy             }
+#  - { key: Insert,   mods: Shift,         action: PasteSelection   }
+#  - { key: Key0,     mods: Control,       action: ResetFontSize    }
+#  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
+#  - { key: Add,      mods: Control,       action: IncreaseFontSize }
+#  - { key: Subtract, mods: Control,       action: DecreaseFontSize }
+#  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+#
+#  - { key: Paste,                    action: Paste                            }
+#  - { key: Copy,                     action: Copy                             }
+#  - { key: L,         mods: Control, action: ClearLogNotice                   }
+#  - { key: L,         mods: Control, chars: "\x0c"                            }
+#  - { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
+#  - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
+#  - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
+#  - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
