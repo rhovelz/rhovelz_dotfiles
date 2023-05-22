@@ -162,6 +162,13 @@ export PATH=$PATH:/home/corshine/.local/bin
 
 ## LAZY GIT
 #
+function corshinewebgit() {
+    git add .
+    git commit -a -m "$1"
+    git push origin main
+}
+
+
 function corshinegit() {
     git add .
     git commit -a -m "$1"
@@ -179,4 +186,9 @@ alias tmuxcorshine='tmux new -s CORSHINE \; split-window -h \; split-window -v \
 alias tb="nc termbin.com 9999"
 #alias gpuNV='prime-offload && optimus-manager --switch nvidia --no-confirm'
 
-neofetch
+
+## Cloudflare 1.1.1.1
+alias warp-c="warp-cli connect && curl https://www.cloudflare.com/cdn-cgi/trace/ 2>/dev/null | grep warp"
+alias warp-dc="warp-cli disconnect && curl https://www.cloudflare.com/cdn-cgi/trace/ 2>/dev/null | grep warp"
+
+#alias sptd="spotifyd -u radivan1337@gmail.com -p SpotifyCorshine -b pulseaudio --verbose --no-daemon --headless && spt"
