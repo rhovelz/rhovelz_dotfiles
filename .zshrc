@@ -154,3 +154,5 @@ function corshinegit() {
 # reboot shutdown
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot"
+
+alias tmuxcorshine='tmux new -s CORSHINE \; split-window -h \; split-window -v \;'
