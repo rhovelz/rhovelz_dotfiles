@@ -1,7 +1,0 @@
-spicetify config current_theme Sleek
-spicetify config color_scheme Dracula
-spicetify apply
-
-
-
-#corshine

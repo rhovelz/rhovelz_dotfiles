@@ -12,7 +12,7 @@
 #                       |___/
 #
 #
-# https://github.com/corshinecorshine
+# https://github.com/rdvcorshine
 
 set $mod Mod4
 
@@ -83,14 +83,14 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty -e zsh -c "tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -s RHOVELIONZ"
-#bindsym $mod+Return exec alacritty
+#bindsym $mod+Return exec alacritty -e zsh -c "tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -s CORSHINE"
+bindsym $mod+Return exec alacritty
 
 # start some application
-bindsym $mod+Shift+w exec --no-startup-id firefox
+bindsym $mod+Shift+w exec --no-startup-id brave
 bindsym $mod+Shift+f exec --no-startup-id thunar
-#bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
-#bindsym $mod+Shift+d exec --no-startup-id discord
+bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
+bindsym $mod+Shift+d exec --no-startup-id discord
 bindsym $mod+Shift+s exec --no-startup-id spotify
 
 # kill focused window
@@ -156,9 +156,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # always float
-#for_window [class="^.*"] border pixel 2
-
-
+for_window [window_role="pop-up"] floating enable
 
 
 # focus the child container
@@ -234,14 +232,7 @@ bindsym $mod+r mode "resize"
 #}
 
 #--lock screen--##
-
-bindsym $mod+shift+x exec betterlockscreen -l dim
-
-# set desktop background with custom effect
-#exec --no-startup-id betterlockscreen -w dim
-
-# Alternative (set last used background)
-#exec --no-startup-id source ~/Pictures/WallpaperArch/arch4.jpeg
+# bindsym $mod+shift+x exec betterlockscreen -l blur
 
 set $ws1 1: 
 set $ws2 2: 
@@ -271,14 +262,11 @@ set $ws10 10: 
 
 ##--DRACULA FOLLOW PICOM--##
 
-# Borders dracula
-client.focused #f8f8f2 #f8f8f2 #f8f8f2 #f8f8f2    #f8f8f2
-client.unfocused #44475a #44475a #44475a #44475a        #44475a
-client.focused_inactive #44475a #44475a #44475a #44475a       #44475a
+# Borders red white
+client.focused #282A36 #282A36 #282A36 #282A36    #282A36
+client.unfocused #282A36 #282A36 #282A36 #282A36        #282A36
+client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
 
-#client.focused #282A36 #282A36 #282A36 #282A36    #282A36
-#client.unfocused #44475a #44475a #44475a #44475a        #44475a
-#client.focused_inactive #44475a #44475a #44475a #44475a         #44475a
 
 # class                         border          background      text            indicator       child_border
 #client.focused                  #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
@@ -291,50 +279,44 @@ client.focused_inactive #44475a #44475a #44475a #44475a       #44475a
 #client.focused #f8f8f2 #f8f8f2 #f8f8f2 #f8f8f2    #f8f8f2
 #client.focused #C50ED2 #C50ED2 #C50ED2 #C50ED2    #C50ED2
 
-for_window [class=".*"] border pixel 1
+#for_window [class=".*"] border pixel 1
 
 # Disable titlebar
-new_window pixel 1
-new_float pixel 1
+new_window pixel 2
+new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 20
-gaps outer 1
-
-focus_follows_mouse yes
+gaps inner 8
+gaps outer 8
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
-
 
 # disable mouse while typing
 exec syndaemon -i 0.5 -d -K
 
 #--STARTUP--#
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ~/.config/script/start-spotifyd-spt.sh
-
 exec --no-startup-id picom &
 exec --no-startup-id nm-applet
 exec --no-startup-id optimus-manager-qt
 exec --no-startup-id flameshot
-#exec --no-startup-id brave
-#exec --no-startup-id alacritty
-
 #exec --no-startup-id barrier
 exec_always --no-startup-id ~/.config/dunst/launch.sh
 #exec_always --no-startup-id ~/.config/mic-config/launchmid-conf.sh
 
 ##--WALLPAPER--##
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/purplearch.png
-exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantap14.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantap14.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantap11.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantap5.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantap6.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mantap7.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/arch6.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper-master/arch.png
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/unix1.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/IMG_7450.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/guillaume-galtier-3YrppYQPoCI-unsplash.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mountains2.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/june3.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/dracula1.png
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/taylor-smith-TawjNbs35C0-unsplash1.jpg
 
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
@@ -343,18 +325,16 @@ exec --no-startup-id xfce4-power-manager
 
 # Save to /Pictures/Screenshots/
 bindsym Print exec corshot
-bindsym Shift+Print exec corshotpentest
 exec --no-startup-id xfce4-clipman
 
 # Save selection screenshot to /Pictures/Screenshots
-#bindsym --release Shift+Print exec scrot -q 100 -s -f "/home/corshine/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png"
+bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshine/Screenshots/%Y-%m-%d-%H%M%S.png
 
 # Save selection screenshot to clipboard
-bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/home/corshine/Pictures/Screenshots/Random-Screenshots/%Y-%m-%d-%H%M%S.png" && xclip -selection clipboard -t "/home/corshine/Pictures/Screenshots/Random-Screenshots/%Y-%m-%d-%H%M%S.png" -i "/home/corshine/Pictures/Screenshots/Random-Screenshots/%Y-%m-%d-%H%M%S.png"
-#bindsym --release Ctrl+Shift+Print exec scrot -e 'xclip -selection clipboard -t image/png -i $f'
+bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
 
 # Auto Tiling
-#exec_always --no-startup-id autotiling
+exec_always --no-startup-id autotiling
 
 # Auto shutdown,reboot,suspend
 set $Locker i3lock && sleep 1
@@ -396,27 +376,24 @@ workspace 10 output $firstMonitor
 
 
 # Floating Mode
-#for_window [class="TelegramDesktop"] floating enable
-#for_window [class="Mailspring"] floating enable
-#for_window [class="Thunar"] floating enable
-#for_window [class="blueman-manager" instance="Blueman-manager"] floating enable
-#for_window [class="zoom" instance="zoom"] floating enable
-#for_window [window_role="Organizer"] floating enable
-#for_window [window_role="About"] floating enable
-#for_window [window_role="toolbox"] floating enable
-#for_window [window_role="page-info"] floating enable
-#for_window [window_role="webconsole"] floating enable
-#for_window [class="pavucontrol" instance="Pavucontrol"] floating enable
-#for_window [window_role="pop-up"] floating
-#for_window [class="[.]*"] floating enable
+for_window [class="TelegramDesktop"] floating enable
+for_window [class="Mailspring"] floating enable
+for_window [class="Thunar"] floating enable
+for_window [class="blueman-manager" instance="Blueman-manager"] floating enable
+for_window [class="zoom" instance="zoom"] floating enable
+for_window [window_role="Organizer"] floating enable
+for_window [window_role="About"] floating enable
+for_window [window_role="toolbox"] floating enable
+for_window [window_role="page-info"] floating enable
+for_window [window_role="webconsole"] floating enable
+for_window [class="pavucontrol" instance="Pavucontrol"] floating enable
+
 
 
 
 ## background lock
-#bindsym $mod+shift+x exec /home/corshine/.config/lock.sh
+bindsym $mod+shift+x exec /home/corshine/.config/lock.sh
 
 
 # pulse-error
-#exec_always --no-startup-id $HOME/.local/bin/pulse.sh
-
-#smart_borders on
+exec_always --no-startup-id $HOME/.local/bin/pulse.sh
