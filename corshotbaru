@@ -26,7 +26,7 @@ color_fg          = "#FFFFFF"
 color_bg          = "#44475a"
 #color_bg          = "#282a36"
 #author_position   = ["NorthEast", "+50+1"] #keluar
-author_position   = ["NorthEast", "+50+13"] #tengah
+author_position   = ["NorthEast", "+50+12"] #tengah
 #author_position   = ["SouthWest", "+30+26"]
 author            = ""+ \
                     os.popen("echo   RH").read().rstrip("\n")
