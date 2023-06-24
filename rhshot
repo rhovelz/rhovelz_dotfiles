@@ -3,7 +3,7 @@
 import os
 from datetime import datetime
 
-screenshot_dir    = "/home/rhovelionz/Pictures/FlameshotSS/"
+screenshot_dir    = "/home/rh/Pictures/Screenshots/"
 os.chdir(screenshot_dir)
 original_file     = datetime.now().strftime("Screenshot_%Y-%m-%d_%H-%M-%S.png")
 target            = list(original_file)
