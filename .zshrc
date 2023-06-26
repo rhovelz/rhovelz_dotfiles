@@ -160,9 +160,11 @@ alias tmuxrh='tmux new -s RH \; split-window -h \; split-window -v \;'
 # Enable Ctrl+arrow key bindings for word jumping
 bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
 bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
-
+set -o emacs
 
 
 # Opening file with vim
 export VISUAL=vim;
 export EDITOR=vim;
+export PATH=$HOME/.config/rofi/scripts:$PATH
+
