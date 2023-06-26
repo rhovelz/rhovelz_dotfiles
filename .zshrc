@@ -155,9 +155,14 @@ function corshinegit() {
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot"
 
-alias tmuxcorshine='tmux new -s CORSHINE \; split-window -h \; split-window -v \;'
+alias tmuxrh='tmux new -s RH \; split-window -h \; split-window -v \;'
 
 # Enable Ctrl+arrow key bindings for word jumping
 bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
 bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
 
+
+
+# Opening file with vim
+export VISUAL=vim;
+export EDITOR=vim;
