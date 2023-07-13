@@ -158,10 +158,12 @@ alias sr="sudo reboot"
 alias tmuxrh='tmux new -s RH \; split-window -h \; split-window -v \;'
 
 # Enable Ctrl+arrow key bindings for word jumping
-bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
-bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
+#bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
+#bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
+bindkey -e
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
 set -o emacs
-
 
 # Opening file with vim
 export VISUAL=vim;
