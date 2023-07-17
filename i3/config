@@ -38,7 +38,7 @@ font pango:Hack 8
 #bindsym mod1+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send "Microphone" "Microphone Toggled"
 #bindsym $mod+p exec --no-startup-id amixer set Capture toggle
 
-## Mute Mic
+# Mute Mic
 bindsym mod1+shift+m exec --no-startup-id pamixer --source 1 --get-mute -m && notify-send " MUTE"
 
 # Unmute Mic
@@ -52,21 +52,6 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 10 --allow-boost &&
 
 # Volume Mute
 bindsym XF86AudioMute exec --no-startup-id pamixer -t && notify-send "VOLUME MUTE"
-
-## Mute Mic
-#bindsym mod1+shift+m exec --no-startup-id pamixer --source 1 --get-mute -m
-#
-## Unmute Mic
-#bindsym mod1+shift+u exec --no-startup-id pamixer --source 1 -u
-#
-## Volume Up
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 10 --allow-boost
-#
-## Volume Down
-#bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 10 --allow-boost
-#
-## Volume Mute
-#bindsym XF86AudioMute exec --no-startup-id pamixer -t
 
 
 # playerctl
@@ -83,15 +68,14 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+Return exec alacritty -e zsh -c "tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -s CORSHINE"
 bindsym $mod+Return exec alacritty
 
 # start some application
-bindsym $mod+Shift+w exec --no-startup-id brave
+bindsym $mod+Shift+w exec --no-startup-id firefox
 bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
 bindsym $mod+Shift+d exec --no-startup-id discord
-bindsym $mod+Shift+s exec --no-startup-id spotify
+bindsym $mod+Shift+v exec --no-startup-id virt-manager
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -105,7 +89,8 @@ bindsym $mod+Shift+q kill
 
 # use rofi instead of dmenu
 #bindsym $mod+d exec rofi -show drun
-bindsym $mod+d exec rofi -show drun -display-run '#' -display-drun '#' -show-icons -modi drun -font "FiraCode 12"
+bindsym $mod+d exec --no-startup-id /home/rh/.config/rofi/bin/launcher
+
 
 # change focus
 bindsym $mod+h focus left
@@ -141,23 +126,18 @@ bindsym mod1+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-#bindsym $mod+Shift+space floating toggle
-bindsym $mod+w floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-
-# always float
-for_window [window_role="pop-up"] floating enable
-
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -232,7 +212,7 @@ bindsym $mod+r mode "resize"
 #}
 
 #--lock screen--##
-# bindsym $mod+shift+x exec betterlockscreen -l blur
+bindsym $mod+shift+x exec betterlockscreen -l blur
 
 set $ws1 1: 
 set $ws2 2: 
@@ -249,16 +229,16 @@ set $ws10 10: 
 ##--DRACULA & WHITE--##
 
 # Borders red white
-#client.focused #9174BF #9174BF #9174BF #9174BF    #174BF
+#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
 #client.unfocused #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6	#E6E6E6
 #client.focused_inactive #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6		#E6E6E6
 
 ##--DRACULA PURE--##
 
 # Borders red white
-#client.focused #f8f8f2 #f8f8f2 #f8f8f2 #f8f8f2    #f8f8f2
-#client.unfocused #282a36 #282a36 #282a36 #282a36        #282a36
-#client.focused_inactive #282a36 #282a36 #282a36 #282a36         #282a36
+#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+#client.unfocused #9174BF #9174BF #9174BF #9174BF        #9174BF
+#client.focused_inactive #9174BF #9174BF #9174BF #9174BF         #9174BF
 
 ##--DRACULA FOLLOW PICOM--##
 
@@ -276,7 +256,7 @@ client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
 #client.placeholder              #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
 
 #client.focused #FE2E64 #FE2E64 #FE2E64 #FE2E64    #FE2E64
-#client.focused #f8f8f2 #f8f8f2 #f8f8f2 #f8f8f2    #f8f8f2
+#client.focused #FF79C6 #FF79C6 #FF79C6 #FF79C6    #FF79C6
 #client.focused #C50ED2 #C50ED2 #C50ED2 #C50ED2    #C50ED2
 
 #for_window [class=".*"] border pixel 1
@@ -286,8 +266,8 @@ new_window pixel 2
 new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 8
-gaps outer 8
+gaps inner 20
+gaps outer 1
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -299,19 +279,16 @@ exec syndaemon -i 0.5 -d -K
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id picom &
 exec --no-startup-id nm-applet
-exec --no-startup-id optimus-manager-qt
 exec --no-startup-id flameshot
 #exec --no-startup-id barrier
 exec_always --no-startup-id ~/.config/dunst/launch.sh
+exec_always --no-startup-id $HOME/rh/.screenlayout/screen.sh
 #exec_always --no-startup-id ~/.config/mic-config/launchmid-conf.sh
 
 ##--WALLPAPER--##
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper-master/arch.png
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/unix1.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/IMG_7450.jpg
-exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/guillaume-galtier-3YrppYQPoCI-unsplash.jpg
+exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mountains2.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/june3.jpg
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/dracula1.png
@@ -321,10 +298,14 @@ exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/guillaume-galtier-3
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
 
+
+exec --no-startup-id xrandr --output Virtual1 --mode 1920x1080 --rate 60
+
+
 #--SCREENSHOTS-WITH-SCROT--#
 
 # Save to /Pictures/Screenshots/
-bindsym Print exec corshot
+bindsym Print exec rhshot
 exec --no-startup-id xfce4-clipman
 
 # Save selection screenshot to /Pictures/Screenshots
@@ -333,67 +314,7 @@ bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshi
 # Save selection screenshot to clipboard
 bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
 
-# Auto Tiling
-exec_always --no-startup-id autotiling
-
-# Auto shutdown,reboot,suspend
-set $Locker i3lock && sleep 1
-
-set $mode_system System (l) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
-mode "$mode_system" {
-    bindsym l exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-bindsym $mod+Pause mode "$mode_system"
-
-
-
-# DUAL MONITOR
-#exec --no-startup-id xrandr --output HDMI1 --right-of EDP1 --auto
-exec --no-startup-id xrandr --output HDMI1 --above EDP1 --auto
-
-# current setup
-set $firstMonitor EDP1
-set $secondMonitor HDMI1
-
-workspace 1 output $firstMonitor
-workspace 2 output $secondMonitor
-workspace 3 output $firstMonitor
-workspace 4 output $firstMonitor
-workspace 5 output $firstMonitor
-workspace 6 output $firstMonitor
-workspace 7 output $firstMonitor
-workspace 8 output $firstMonitor
-workspace 9 output $firstMonitor
-workspace 10 output $firstMonitor
-
-
-# Floating Mode
-for_window [class="TelegramDesktop"] floating enable
-for_window [class="Mailspring"] floating enable
-for_window [class="Thunar"] floating enable
-for_window [class="blueman-manager" instance="Blueman-manager"] floating enable
-for_window [class="zoom" instance="zoom"] floating enable
-for_window [window_role="Organizer"] floating enable
-for_window [window_role="About"] floating enable
-for_window [window_role="toolbox"] floating enable
-for_window [window_role="page-info"] floating enable
-for_window [window_role="webconsole"] floating enable
-for_window [class="pavucontrol" instance="Pavucontrol"] floating enable
-
-
-
-
-## background lock
-bindsym $mod+shift+x exec /home/corshine/.config/lock.sh
-
-
-# pulse-error
-exec_always --no-startup-id $HOME/.local/bin/pulse.sh
+exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
+exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
+exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
+exec --no-startup-id $HOME/.fehbg

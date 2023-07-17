@@ -47,7 +47,7 @@ set_style() {
 	# apply color-scheme
 	cat "$THEMEDIR"/${1}.bash > "$THEMEDIR"/current.bash
 	echo -e "\n# Don't Delete This File" >> "$THEMEDIR"/current.bash
-	
+
 	# set gtk theme, icons and cursor
 	if [[ `pidof xsettingsd` ]]; then
 		sed -i -e "s|Net/ThemeName .*|Net/ThemeName \"$2\"|g" ${XFILE}
@@ -57,12 +57,12 @@ set_style() {
 		sed -i -e "s/gtk-theme-name=.*/gtk-theme-name=\"$2\"/g" ${HOME}/.gtkrc-2.0
 		sed -i -e "s/gtk-icon-theme-name=.*/gtk-icon-theme-name=\"$3\"/g" ${HOME}/.gtkrc-2.0
 		sed -i -e "s/gtk-cursor-theme-name=.*/gtk-cursor-theme-name=\"$4\"/g" ${HOME}/.gtkrc-2.0
-		
+
 		sed -i -e "s/gtk-theme-name=.*/gtk-theme-name=$2/g" ${CFGDIR}/gtk-3.0/settings.ini
 		sed -i -e "s/gtk-icon-theme-name=.*/gtk-icon-theme-name=$3/g" ${CFGDIR}/gtk-3.0/settings.ini
 		sed -i -e "s/gtk-cursor-theme-name=.*/gtk-cursor-theme-name=$4/g" ${CFGDIR}/gtk-3.0/settings.ini
 	fi
-	
+
 	# reload bspwm
 	bspc wm -r
 }
@@ -72,7 +72,7 @@ random_theme() {
 	## Set you wallpaper directory here.
 	WALLDIR="`xdg-user-dir PICTURES`/wallpapers"
 	WALFILE="$HOME/.cache/wal/colors.sh"
-	
+
 	if [[ `which wal` ]]; then
 		dunstify -u low --replace=699 -i /usr/share/archcraft/icons/dunst/hourglass.png "Generating Colorscheme. Please wait..."
 		wal -q -n -s -t -e -i "$WALLDIR"
