@@ -68,7 +68,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec alacritty 
 
 # start some application
 bindsym $mod+Shift+w exec --no-startup-id firefox
@@ -89,8 +89,7 @@ bindsym $mod+Shift+q kill
 
 # use rofi instead of dmenu
 #bindsym $mod+d exec rofi -show drun
-bindsym $mod+d exec --no-startup-id /home/rh/.config/rofi/bin/launcher
-
+#bindsym $mod+d exec rofi -show drun -display-run '#' -display-drun '#' -show-icons -modi drun -font "JetBrainsMonoNerdFont 12"
 
 # change focus
 bindsym $mod+h focus left
@@ -212,7 +211,7 @@ bindsym $mod+r mode "resize"
 #}
 
 #--lock screen--##
-bindsym $mod+shift+x exec betterlockscreen -l blur
+bindsym $mod+shift+x exec betterlockscreen -u ~/Pictures/Wallpapers/arch-liinux-4k-t0-1336x768.jpg
 
 set $ws1 1: 
 set $ws2 2: 
@@ -229,9 +228,9 @@ set $ws10 10: 
 ##--DRACULA & WHITE--##
 
 # Borders red white
-#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
-#client.unfocused #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6	#E6E6E6
-#client.focused_inactive #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6		#E6E6E6
+client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+client.unfocused #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6	#E6E6E6
+client.focused_inactive #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6		#E6E6E6
 
 ##--DRACULA PURE--##
 
@@ -243,21 +242,17 @@ set $ws10 10: 
 ##--DRACULA FOLLOW PICOM--##
 
 # Borders red white
-client.focused #282A36 #282A36 #282A36 #282A36    #282A36
-client.unfocused #282A36 #282A36 #282A36 #282A36        #282A36
-client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
+#client.focused #282A36 #282A36 #282A36 #282A36    #282A36
+#client.unfocused #282A36 #282A36 #282A36 #282A36        #282A36
+#client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
 
 
-# class                         border          background      text            indicator       child_border
-#client.focused                  #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
-#client.focused_inactive         #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
-#client.unfocused                 #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
-#client.urgent                   #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
-#client.placeholder              #FE2E64         #FE2E64         #FE2E64         $coloratt       #FE2E64
+# Borders red white
+#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+#client.unfocused #9174BF #9174BF #9174BF #9174BF        #9174BF
+#client.focused_inactive #9174BF #9174BF #9174BF #9174BF         #9174BF
 
-#client.focused #FE2E64 #FE2E64 #FE2E64 #FE2E64    #FE2E64
-#client.focused #FF79C6 #FF79C6 #FF79C6 #FF79C6    #FF79C6
-#client.focused #C50ED2 #C50ED2 #C50ED2 #C50ED2    #C50ED2
+
 
 #for_window [class=".*"] border pixel 1
 
@@ -266,8 +261,8 @@ new_window pixel 2
 new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 20
-gaps outer 1
+gaps inner 18
+gaps outer 5
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -282,22 +277,14 @@ exec --no-startup-id nm-applet
 exec --no-startup-id flameshot
 #exec --no-startup-id barrier
 exec_always --no-startup-id ~/.config/dunst/launch.sh
-exec_always --no-startup-id $HOME/rh/.screenlayout/screen.sh
 #exec_always --no-startup-id ~/.config/mic-config/launchmid-conf.sh
 
 ##--WALLPAPER--##
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/nord.png
-exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/mountains2.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/june3.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/dracula1.png
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
-#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/taylor-smith-TawjNbs35C0-unsplash1.jpg
+exec --no-startup-id feh --bg-scale $HOME/Pictures/Wallpapers/418276.jpg
 
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
-
 
 exec --no-startup-id xrandr --output Virtual1 --mode 1920x1080 --rate 60
 
@@ -314,7 +301,9 @@ bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshi
 # Save selection screenshot to clipboard
 bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
 
-exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
-exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
-exec --no-startup-id feh --bg-scale $HOME/Pict/luca-micheli-ruWkmt3nU58-unsplash.jpg
-exec --no-startup-id $HOME/.fehbg
+
+
+#bindsym $mod+p exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
+bindsym $mod+x exec --no-startup-id powermenu_t3
+
+bindsym $mod+d exec --no-startup-id /home/rh/.config/rofi/bin/launcher 
