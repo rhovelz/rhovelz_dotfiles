@@ -75,7 +75,9 @@ bindsym $mod+Shift+w exec --no-startup-id firefox
 bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
 bindsym $mod+Shift+d exec --no-startup-id discord
-bindsym $mod+Shift+v exec --no-startup-id virt-manager
+bindsym $mod+Shift+b exec --no-startup-id barrier
+
+#bindsym $mod+Shift+v exec --no-startup-id virt-manager
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -116,10 +118,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym mod1+h split h
+bindsym mod+h split h
 
 # split in vertical orientation
-bindsym mod1+v split v
+bindsym mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
