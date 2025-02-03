@@ -1,0 +1,8 @@
+#!/bin/bash
+
+overlay=/usr/share/pixmaps/archlinux-logo.png
+
+scrot /tmp/currentworkspace.png
+convert /tmp/currentworkspace.png -blur 0x5 /tmp/currentworkspaceblur.png
+composite -gravity southeast $overlay /tmp/currentworkspaceblur.png /tmp/lockbackground.png
+i3lock -i /tmp/lockbackground.png
