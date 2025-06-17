@@ -288,7 +288,7 @@ exec --no-startup-id feh --bg-scale $HOME/Pictures/Wallpapers/418276.jpg
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
 
-exec --no-startup-id xrandr --output Virtual1 --mode 1920x1080 --rate 60
+exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1080 --rate 60
 
 
 #--SCREENSHOTS-WITH-SCROT--#
@@ -298,14 +298,16 @@ bindsym Print exec rhshot
 exec --no-startup-id xfce4-clipman
 
 # Save selection screenshot to /Pictures/Screenshots
-bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshine/Screenshots/%Y-%m-%d-%H%M%S.png
+#bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshine/Screenshots/%Y-%m-%d-%H%M%S.png
 
 # Save selection screenshot to clipboard
-bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
+#bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
 
 
 
 #bindsym $mod+p exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
 bindsym $mod+x exec --no-startup-id powermenu_t3
 
-bindsym $mod+d exec --no-startup-id /home/rh/.config/rofi/bin/launcher 
+bindsym $mod+d exec --no-startup-id /home/rh0v3lz/.config/rofi/bin/launcher 
+
+#bindsym $mod+Print exec flameshot gui
