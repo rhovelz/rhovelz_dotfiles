@@ -1,0 +1,313 @@
+#  ____               _     _            _       _ _____
+# / ___|___  _ __ ___| |__ (_)_ __   ___( )___  (_)___ /
+#| |   / _ \| '__/ __| '_ \| | '_ \ / _ \// __| | | |_ \
+#| |__| (_) | |  \__ \ | | | | | | |  __/ \__ \ | |___) |
+# \____\___/|_|  |___/_| |_|_|_| |_|\___| |___/ |_|____/
+#
+#                  __ _                       _   _
+#  ___ ___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __
+# / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \
+#| (_| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | |
+# \___\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
+#                       |___/
+#
+#
+# https://github.com/rdvcorshine
+
+set $mod Mod4
+
+#font pango:monospace 8
+font pango:Hack 8
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Use pactl to adjust volume in PulseAudio.
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 10%+ unmute && notify-send "Volume" "Volume Up"
+#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master 10%- unmute && notify-send "Volume" "Volume Down"
+#bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master toggle
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+#bindsym mod1+t exec --no-startup-id amixer set Capture toggle && notify-send "Microphone" "Microphone Toggled"
+#bindsym mod1+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send "Microphone" "Microphone Toggled"
+#bindsym mod1+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && notify-send "Microphone" "Microphone Toggled"
+#bindsym $mod+p exec --no-startup-id amixer set Capture toggle
+
+# Mute Mic
+bindsym mod1+shift+m exec --no-startup-id pamixer --source 1 --get-mute -m && notify-send " MUTE"
+
+# Unmute Mic
+bindsym mod1+shift+u exec --no-startup-id pamixer --source 1 -u && notify-send " UNMUTE"
+
+# Volume Up
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 10 --allow-boost && notify-send "VOLUME UP"
+
+# Volume Down
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 10 --allow-boost && notify-send "VOLUME DOWN"
+
+# Volume Mute
+bindsym XF86AudioMute exec --no-startup-id pamixer -t && notify-send "VOLUME MUTE"
+
+
+# playerctl
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec alacritty 
+
+# start some application
+bindsym $mod+Shift+w exec --no-startup-id firefox
+bindsym $mod+Shift+f exec --no-startup-id thunar
+bindsym $mod+Shift+t exec --no-startup-id telegram-desktop
+bindsym $mod+Shift+d exec --no-startup-id discord
+bindsym $mod+Shift+b exec --no-startup-id barrier
+
+#bindsym $mod+Shift+v exec --no-startup-id virt-manager
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# use rofi instead of dmenu
+#bindsym $mod+d exec rofi -show drun
+#bindsym $mod+d exec rofi -show drun -display-run '#' -display-drun '#' -show-icons -modi drun -font "JetBrainsMonoNerdFont 12"
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym mod+h split h
+
+# split in vertical orientation
+bindsym mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+
+##--WORKSPACE--##
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+#bar {
+#        status_command i3status
+#}
+
+#--lock screen--##
+bindsym $mod+shift+x exec betterlockscreen -u ~/Pictures/Wallpapers/arch-liinux-4k-t0-1336x768.jpg
+
+set $ws1 1: 
+set $ws2 2: 
+set $ws3 3: 
+set $ws4 4: 
+set $ws5 5: 
+set $ws6 6: 
+set $ws7 7: 
+set $ws8 8: 
+set $ws9 9: 
+set $ws10 10: 
+
+
+##--DRACULA & WHITE--##
+
+# Borders red white
+client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+client.unfocused #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6	#E6E6E6
+client.focused_inactive #E6E6E6 #E6E6E6 #E6E6E6 #E6E6E6		#E6E6E6
+
+##--DRACULA PURE--##
+
+# Borders red white
+#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+#client.unfocused #9174BF #9174BF #9174BF #9174BF        #9174BF
+#client.focused_inactive #9174BF #9174BF #9174BF #9174BF         #9174BF
+
+##--DRACULA FOLLOW PICOM--##
+
+# Borders red white
+#client.focused #282A36 #282A36 #282A36 #282A36    #282A36
+#client.unfocused #282A36 #282A36 #282A36 #282A36        #282A36
+#client.focused_inactive #282A36 #282A36 #282A36 #282A36         #282A36
+
+
+# Borders red white
+#client.focused #9174BF #9174BF #9174BF #9174BF    #9174BF
+#client.unfocused #9174BF #9174BF #9174BF #9174BF        #9174BF
+#client.focused_inactive #9174BF #9174BF #9174BF #9174BF         #9174BF
+
+
+
+#for_window [class=".*"] border pixel 1
+
+# Disable titlebar
+new_window pixel 2
+new_float pixel 3
+
+# Gaps (i3-gaps)
+gaps inner 18
+gaps outer 5
+
+# Enable popup during fullscreen
+popup_during_fullscreen smart
+
+# disable mouse while typing
+exec syndaemon -i 0.5 -d -K
+
+#--STARTUP--#
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id picom &
+exec --no-startup-id nm-applet
+exec --no-startup-id flameshot
+#exec --no-startup-id barrier
+exec_always --no-startup-id ~/.config/dunst/launch.sh
+#exec_always --no-startup-id ~/.config/mic-config/launchmid-conf.sh
+
+##--WALLPAPER--##
+#exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
+exec --no-startup-id feh --bg-scale $HOME/Pictures/Wallpapers/418276.jpg
+
+#--BATTERY-NOTIF--#
+exec --no-startup-id xfce4-power-manager
+
+exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1080 --rate 60
+
+
+#--SCREENSHOTS-WITH-SCROT--#
+
+# Save to /Pictures/Screenshots/
+bindsym Print exec rhshot
+exec --no-startup-id xfce4-clipman
+
+# Save selection screenshot to /Pictures/Screenshots
+#bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshine/Screenshots/%Y-%m-%d-%H%M%S.png
+
+# Save selection screenshot to clipboard
+#bindsym --release Ctrl+Shift+Print exec scrot -q 100 -s -f -o "/tmp/image.png" && xclip -selection clipboard -t image/png -i /tmp/image.png
+
+
+
+#bindsym $mod+p exec --no-startup-id ~/.config/rofi/launchers/type-3/launcher.sh
+bindsym $mod+x exec --no-startup-id powermenu_t3
+
+bindsym $mod+d exec --no-startup-id /home/rh0v3lz/.config/rofi/bin/launcher 
+
+#bindsym $mod+Print exec flameshot gui

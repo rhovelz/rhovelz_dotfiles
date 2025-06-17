@@ -53,7 +53,7 @@ bindkey "^I" expand-or-complete-with-dots
 #  ┬ ┬┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
 #  ├─┤│└─┐ │ │ │├┬┘└┬┘
 #  ┴ ┴┴└─┘ ┴ └─┘┴└─ ┴ 
-HISTFILE=~/.config/zsh/zhistory
+HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 
