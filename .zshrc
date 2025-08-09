@@ -138,14 +138,14 @@ alias l='lsd -la --group-directories-first'
 
 ## LAZY GIT
 #
-function corshinewebgit() {
+function rh0v3lzwebsitegit() {
     git add .
     git commit -a -m "$1"
     git push origin main
 }
 
 
-function corshinegit() {
+function rh0v3lz-git() {
     git add .
     git commit -a -m "$1"
     git push
@@ -170,3 +170,15 @@ export VISUAL=vim;
 export EDITOR=vim;
 export PATH=$HOME/.config/rofi/scripts:$PATH
 
+
+# Add Nexus CLI to PATH
+export PATH="/home/rh0v3lz/.nexus/bin:$PATH"
+
+alias tb="nc termbin.com 9999"
+
+export DISABLE_AUTO_TITLE=true
+
+# Golang environment variables
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
