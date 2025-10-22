@@ -138,14 +138,14 @@ alias l='lsd -la --group-directories-first'
 
 ## LAZY GIT
 #
-function rh0v3lzwebsitegit() {
+function rh0v3lzwebgit() {
     git add .
     git commit -a -m "$1"
     git push origin main
 }
 
 
-function rh0v3lz-git() {
+function rh0v3lzgit() {
     git add .
     git commit -a -m "$1"
     git push
@@ -177,8 +177,9 @@ export PATH="/home/rh0v3lz/.nexus/bin:$PATH"
 alias tb="nc termbin.com 9999"
 
 export DISABLE_AUTO_TITLE=true
+alias 0x0="curl -F 'file=@-' https://0x0.st"
 
-# Golang environment variables
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
+export BROWSER=firefox
+WORDCHARS=${WORDCHARS//[\/.]/}
+
+export TIP=46.202.196.131
