@@ -263,7 +263,7 @@ new_window pixel 2
 new_float pixel 3
 
 # Gaps (i3-gaps)
-gaps inner 18
+gaps inner 10
 gaps outer 5
 
 # Enable popup during fullscreen
@@ -283,12 +283,12 @@ exec_always --no-startup-id ~/.config/dunst/launch.sh
 
 ##--WALLPAPER--##
 #exec --no-startup-id feh --bg-scale ~/Pictures/WallpaperArch/daniel-leone-v7daTKlZzaw-unsplash_modded.jpg
-exec --no-startup-id feh --bg-scale $HOME/Pictures/Wallpapers/418276.jpg
+exec --no-startup-id feh --bg-scale $HOME/Pict/Walls/e3ds1gR-arch-linux-wallpaper.jpg
 
 #--BATTERY-NOTIF--#
 exec --no-startup-id xfce4-power-manager
 
-exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1080 --rate 60
+exec --no-startup-id xrandr --output Virtual-1 --rate 60 --mode 1920x1080 
 
 
 #--SCREENSHOTS-WITH-SCROT--#
@@ -296,6 +296,7 @@ exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1080 --rate 60
 # Save to /Pictures/Screenshots/
 bindsym Print exec rhshot
 exec --no-startup-id xfce4-clipman
+exec --no-startup-id vmware-user
 
 # Save selection screenshot to /Pictures/Screenshots
 #bindsym --release Shift+Print exec scrot -q 100 -s -f /home/corshine/Arch-Corshine/Screenshots/%Y-%m-%d-%H%M%S.png
@@ -311,3 +312,4 @@ bindsym $mod+x exec --no-startup-id powermenu_t3
 bindsym $mod+d exec --no-startup-id /home/rh0v3lz/.config/rofi/bin/launcher 
 
 #bindsym $mod+Print exec flameshot gui
+
