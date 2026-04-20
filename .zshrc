@@ -156,3 +156,24 @@ alias xvanz7update="sudo apt update -y && sudo apt full-upgrade -y && sudo apt a
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 alias l='ls -altrh'
+
+# Increase History Size
+HISTSIZE=10000000        # Commands to remember in memory (session)
+SAVEHIST=10000000        # Commands to save to the history file
+HISTFILE=~/.zsh_history # File where history is stored
+
+# Better history options
+setopt INC_APPEND_HISTORY  # Save commands to history file as soon as they are typed
+setopt SHARE_HISTORY       # Share history across all open terminals
+setopt HIST_IGNORE_DUPS    # Ignore consecutive duplicate commands
+setopt hist_ignore_space   # Trick to not record hist
+
+
+
+# Open in tmux popup if on tmux, otherwise use --height mode
+#
+alias fzfprev="fzf --style full \
+    --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
+#export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse  --border top'
+#
+export ip=10.129.19.175
