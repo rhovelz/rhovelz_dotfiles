@@ -7,6 +7,7 @@ set t_Co=256                   " set terminal 256 color
 " ----------------------------------------------------------------------------
 "
 call plug#begin('~/.vim/plugged')
+Plug 'arcticicestudio/nord-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -31,8 +32,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-liquid'
-Plug 'neoclide/coc.nvim', {'do': './install.sh'}
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/eruby.vim'
@@ -51,7 +52,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'idbrii/vim-notgrep'
 Plug 'sunaku/vim-ruby-minitest'
 Plug 'lervag/vimtex'
-Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'kaicataldo/material.vim'
 
 
@@ -178,7 +179,7 @@ nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
 
 
 " Vim-Airline {{{
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -194,8 +195,10 @@ let g:airline#extensions#whitespace#enabled = 0
 "let g:airline#extensions#tmuxline#enabled = 0
 
 " Vim-Airline-Theme
+let g:airline_theme='cyberpunk'
 "let g:airline_theme='hybridline'
-let g:airline_theme='dracula'
+"let g:airline_theme='nord_minimal'
+"let g:airline_theme='ayu_mirage'
 
 let s:saved_theme = []
 let g:airline_theme_patch_func = 'AirlineThemePatch'

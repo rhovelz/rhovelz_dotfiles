@@ -1,4 +1,4 @@
-let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 argglobal
 setlocal fdm=marker
 setlocal fde=0
@@ -9,46 +9,20 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 6
-normal! zo
-173
-normal! zo
-210
-normal! zo
-221
-normal! zo
-230
-normal! zo
-295
-normal! zo
-370
-normal! zo
-384
-normal! zo
-390
-normal! zo
-396
-normal! zo
-501
-normal! zo
-512
-normal! zo
-520
-normal! zo
-527
-normal! zo
-535
-normal! zo
-558
-normal! zo
-589
-normal! zo
-let s:l = 639 - ((49 * winheight(0) + 27) / 55)
+sil! normal! zo
+181
+sil! normal! zo
+219
+sil! normal! zo
+405
+sil! normal! zo
+let s:l = 2 - ((1 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
-exe s:l
+keepjumps exe s:l
 normal! zt
-639
+keepjumps 2
 normal! 0
-let &so = s:so_save | let &siso = s:siso_save
+let &g:so = s:so_save | let &g:siso = s:siso_save
 nohlsearch
 doautoall SessionLoadPost
 " vim: set ft=vim :
