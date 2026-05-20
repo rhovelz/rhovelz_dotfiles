@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -8,7 +15,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#ZSH_THEME="dracula"
 ZSH_THEME="robbyrussell"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +79,13 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+  sudo
+  history
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -121,7 +136,9 @@ function xv4nz7git() {
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot"
 
-alias tmuxrh='tmux new -s -R.H- \; split-window -h \; split-window -v \;'
+alias tmuxrh="tmux new -s 'R A D I V A N' weechat\;"
+#alias tmuxrh="tmux new -s 'R A D I V A N' opencode\; split-window -h weechat \;"
+#alias tmuxrh='tmux new -s "R A D I V A N" \; split-window -h \; split-window -v \;'
 
 # Enable Ctrl+arrow key bindings for word jumping
 #bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
@@ -150,12 +167,12 @@ WORDCHARS=${WORDCHARS//[\/.]/}
 export TIP=46.202.196.131
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-alias xvanz7update="sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y"
+alias updateandclean="sudo apt update && sudo apt install -y lynis chkrootkit clamav && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo apt clean && sudo freshclam && sudo clamscan -r -i ~ && sudo chkrootkit && sudo lynis audit system"
+alias xv4nz7update="sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y sudo apt autoclean && sudo apt clean && sudo apt autoremove && sudo apt remove && sudo apt autoremove --purge"
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
-alias l='ls -altrh'
+alias l='lsd -altrh'
 
 # Increase History Size
 HISTSIZE=10000000        # Commands to remember in memory (session)
@@ -176,4 +193,50 @@ alias fzfprev="fzf --style full \
     --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
 #export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse  --border top'
 #
-export ip=10.129.19.175
+
+# opencode
+export PATH=/home/xv4nz7/.opencode/bin:$PATH
+
+# Golang
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH="$HOME/go/bin:$PATH"
+
+# Ubah cat to bat
+alias cat='bat --style=auto'
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# mkdir & cd
+function mkcd {
+  command mkdir $1 && cd $1
+}
+
+# venv
+alias venvactivate='source ~/.config/.venv/bin/activate'
+
+#Home Windows
+alias home='/mnt/c/Users/THINKPAD'
+#alias iocbssn="/mnt/d/Radivan's File/OneDrive/OneDrive - PT. Bank Aceh Syariah/RH/CSIRT TTIS/IOC FROM BSSN"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+
+#eval "$(oh-my-posh init zsh --config dracula)"
+#eval "$(oh-my-posh init zsh --config capr4n)"
+
+#POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+
+
+# FZF Catppuccin
+#export FZF_DEFAULT_OPTS=" \
+#--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+#--color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+#--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+#--color=selected-bg:#45475A \
+#--color=border:#6C7086,label:#CDD6F4"
