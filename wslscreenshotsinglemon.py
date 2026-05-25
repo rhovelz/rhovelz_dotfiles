@@ -175,7 +175,7 @@ convert {target_file} -bordercolor {background_color} -border {background_size} 
 echo -n " {author} " | convert {target_file} \
 -gravity {author_position[0]} -pointsize {font_size} -fill '{color_fg}' \
 -undercolor '{color_bg}' -font {font} \
--annotate {author_position[1]} ' -{author}-' {target_file}
+-annotate {author_position[1]} ' -{author}- ' {target_file}
 
 convert {target_file} -gravity South -chop 0x{half_bg} {target_file}
 
