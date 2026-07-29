@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -156,9 +149,6 @@ export EDITOR=vim;
 export PATH=$HOME/.config/rofi/scripts:$PATH
 
 
-# Add Nexus CLI to PATH
-export PATH="/home/rh0v3lz/.nexus/bin:$PATH"
-
 alias tb="nc termbin.com 9999"
 
 export DISABLE_AUTO_TITLE=true
@@ -172,13 +162,13 @@ export TIP=46.202.196.131
 alias updateandclean="sudo apt update && sudo apt install -y lynis chkrootkit clamav && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo apt clean && sudo freshclam && sudo clamscan -r -i ~ && sudo chkrootkit && sudo lynis audit system"
 alias 0xv4nzupdate="sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y sudo apt autoclean && sudo apt clean && sudo apt autoremove && sudo apt remove && sudo apt autoremove --purge"
 
-test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
+[ -r ~/.dir_colors ] && eval "$(dircolors ~/.dir_colors)"
 
 alias l='lsd -altrh'
 
 # Increase History Size
-HISTSIZE=10000000        # Commands to remember in memory (session)
-SAVEHIST=10000000        # Commands to save to the history file
+HISTSIZE=100000000        # Commands to remember in memory (session)
+SAVEHIST=100000000        # Commands to save to the history file
 HISTFILE=~/.zsh_history # File where history is stored
 
 # Better history options
@@ -186,6 +176,7 @@ setopt INC_APPEND_HISTORY  # Save commands to history file as soon as they are t
 setopt SHARE_HISTORY       # Share history across all open terminals
 setopt HIST_IGNORE_DUPS    # Ignore consecutive duplicate commands
 setopt hist_ignore_space   # Trick to not record hist
+setopt EXTENDED_HISTORY    # Simpan timestamp tiap entri -> `history -i`
 
 
 
@@ -254,8 +245,34 @@ export PATH="$HOME/.local/share/gem/ruby/3.3.0/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Garis pemisah antar output (ala af-magic, tapi theme-agnostic)
-precmd_separator() { print -P "%F{#CBA6F7}${(l:COLUMNS::─:):-}%f" }   # mauve
-precmd_functions+=(precmd_separator)
+# ── Prompt: garis pemisah + badge kanan (Catppuccin Mocha) ──────────────
+# Garis cuma kalau ada command dijalankan; badge durasi kalau > 5 detik
+_pt_preexec() { _pt_t0=$SECONDS; _pt_ran=1 }
+_pt_precmd() {
+  local d=$(( SECONDS - ${_pt_t0:-$SECONDS} ))
+  _pt_dur=""
+  _pt_venv=""
+  [[ -n $VIRTUAL_ENV ]] && _pt_venv="%F{#A6E3A1}${psep}%f%K{#A6E3A1}%F{#1E1E2E} ${VIRTUAL_ENV:t} %f%k "
+  (( _pt_ran )) || return
+  print -P "%F{#CBA6F7}${(l:COLUMNS::─:):-}%f"
+  (( d > 5 )) && _pt_dur="%F{#F9E2AF}${psep}%f%K{#F9E2AF}%F{#1E1E2E} ${d}s %f%k "
+  _pt_ran=0
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _pt_preexec
+add-zsh-hook precmd  _pt_precmd
 psep=$''   # powerline separator, sama dgn @dracula-show-right-sep di tmux
-RPROMPT="%F{#94E2D5}${psep}%f%K{#94E2D5}%F{#1E1E2E} %D{%H:%M:%S} %f%k%K{#94E2D5}%F{#FAB387}${psep}%f%k%K{#FAB387}%F{#1E1E2E} %n %f%k"
+export VIRTUAL_ENV_DISABLE_PROMPT=1   # venv dirender sendiri sebagai badge kanan
+ZLE_RPROMPT_INDENT=0                  # hapus 1 kolom sisa di kanan RPROMPT
+
+# durasi · venv · exit code (kalau gagal) · jam · user (merah kalau root)
+RPROMPT='${_pt_dur}${_pt_venv}%(?..%F{#F38BA8}${psep}%f%K{#F38BA8}%F{#1E1E2E} %? %f%k )%F{#94E2D5}${psep}%f%K{#94E2D5}%F{#1E1E2E} %D{%H:%M:%S} %f%k%K{#94E2D5}%(!.%F{#F38BA8}.%F{#FAB387})${psep}%f%k%(!.%K{#F38BA8}.%K{#FAB387})%F{#1E1E2E} %n %f%k'
+
+# Segmen git di prompt kiri: branch lavender, hijau clean, kuning dirty
+ZSH_THEME_GIT_PROMPT_PREFIX=$'%F{#B4BEFE}\ue0a0 '
+ZSH_THEME_GIT_PROMPT_SUFFIX="%f "
+ZSH_THEME_GIT_PROMPT_DIRTY="%F{#F9E2AF} ●%f "
+ZSH_THEME_GIT_PROMPT_CLEAN="%F{#A6E3A1} ✔%f "
+
+# zoxide (cd yang belajar dari kebiasaan). Guard: aman kalau belum terinstall.
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
