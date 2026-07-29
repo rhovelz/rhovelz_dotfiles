@@ -17,6 +17,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="dracula"
 ZSH_THEME="robbyrussell"
+#ZSH_THEME="jonathan"
+#ZSH_THEME="af-magic"
 #ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -168,7 +170,7 @@ export TIP=46.202.196.131
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias updateandclean="sudo apt update && sudo apt install -y lynis chkrootkit clamav && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean && sudo apt clean && sudo freshclam && sudo clamscan -r -i ~ && sudo chkrootkit && sudo lynis audit system"
-alias xv4nz7update="sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y sudo apt autoclean && sudo apt clean && sudo apt autoremove && sudo apt remove && sudo apt autoremove --purge"
+alias 0xv4nzupdate="sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y sudo apt autoclean && sudo apt clean && sudo apt autoremove && sudo apt remove && sudo apt autoremove --purge"
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
@@ -240,3 +242,20 @@ export PATH=$PATH:$GOPATH/bin
 #--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
 #--color=selected-bg:#45475A \
 #--color=border:#6C7086,label:#CDD6F4"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Ruby gems
+export PATH="$HOME/.local/share/gem/ruby/3.3.0/bin:$PATH"
+
+# bun completions
+[ -s "/home/xv4nz7/.bun/_bun" ] && source "/home/xv4nz7/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Garis pemisah antar output (ala af-magic, tapi theme-agnostic)
+precmd_separator() { print -P "%F{#CBA6F7}${(l:COLUMNS::─:):-}%f" }   # mauve
+precmd_functions+=(precmd_separator)
+psep=$''   # powerline separator, sama dgn @dracula-show-right-sep di tmux
+RPROMPT="%F{#94E2D5}${psep}%f%K{#94E2D5}%F{#1E1E2E} %D{%H:%M:%S} %f%k%K{#94E2D5}%F{#FAB387}${psep}%f%k%K{#FAB387}%F{#1E1E2E} %n %f%k"
