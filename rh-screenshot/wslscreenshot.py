@@ -45,6 +45,11 @@ parser.add_argument(
     )
 )
 parser.add_argument(
+    "--select", "-s",
+    action="store_true",
+    help="Pilih area screenshot secara manual (drag mouse, seperti Flameshot)"
+)
+parser.add_argument(
     "--list", "-l",
     action="store_true",
     help="Tampilkan daftar semua monitor yang terhubung lalu keluar"
@@ -108,6 +113,141 @@ def get_active_monitor_wsl(monitors):
     # Fallback ke primary jika cursor di luar semua monitor (jarang terjadi)
     print("[!] Cursor tidak terdeteksi di monitor manapun, fallback ke primary.")
     return next((m for m in monitors if m["primary"]), monitors[0])
+
+# ── Fungsi: select area via overlay (WSL) ────────────────────────────────────
+def select_region_wsl():
+    """Tampilkan overlay transparan full-screen, user drag untuk pilih area.
+    Return dict {x, y, width, height} atau None jika dibatalkan (Esc/klik kanan)."""
+    ps_script = r"""
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+$vLeft   = [System.Windows.Forms.SystemInformation]::VirtualScreen.Left
+$vTop    = [System.Windows.Forms.SystemInformation]::VirtualScreen.Top
+$vWidth  = [System.Windows.Forms.SystemInformation]::VirtualScreen.Width
+$vHeight = [System.Windows.Forms.SystemInformation]::VirtualScreen.Height
+
+$form            = New-Object System.Windows.Forms.Form
+$form.StartPosition = 'Manual'
+$form.Location   = New-Object System.Drawing.Point($vLeft, $vTop)
+$form.Size       = New-Object System.Drawing.Size($vWidth, $vHeight)
+$form.FormBorderStyle = 'None'
+$form.BackColor  = [System.Drawing.Color]::Black
+$form.Opacity    = 0.3
+$form.TopMost    = $true
+$form.Cursor     = [System.Windows.Forms.Cursors]::Cross
+$form.ShowInTaskbar = $false
+
+$startPoint = $null
+$endPoint   = $null
+$selecting  = $false
+$cancelled  = $true
+
+$overlay = New-Object System.Windows.Forms.PictureBox
+$overlay.Dock = 'Fill'
+$form.Controls.Add($overlay)
+
+$form.Add_KeyDown({
+    if ($_.KeyCode -eq 'Escape') { $form.Close() }
+})
+
+$overlay.Add_MouseDown({
+    if ($_.Button -eq 'Right') { $form.Close(); return }
+    if ($_.Button -eq 'Left') {
+        $script:startPoint = $_.Location
+        $script:startPoint = New-Object System.Drawing.Point(
+            ($_.Location.X + $vLeft), ($_.Location.Y + $vTop))
+        $script:selecting = $true
+    }
+})
+
+$overlay.Add_MouseMove({
+    if ($script:selecting) {
+        $script:endPoint = New-Object System.Drawing.Point(
+            ($_.Location.X + $vLeft), ($_.Location.Y + $vTop))
+        $g = $overlay.CreateGraphics()
+        $overlay.Refresh()
+        $rect = New-Object System.Drawing.Rectangle(
+            ([Math]::Min($script:startPoint.X - $vLeft, $script:endPoint.X - $vLeft)),
+            ([Math]::Min($script:startPoint.Y - $vTop,  $script:endPoint.Y - $vTop)),
+            ([Math]::Abs($script:endPoint.X - $script:startPoint.X)),
+            ([Math]::Abs($script:endPoint.Y - $script:startPoint.Y))
+        )
+        $pen = New-Object System.Drawing.Pen([System.Drawing.Color]::Cyan, 2)
+        $g.DrawRectangle($pen, $rect)
+        $brush = New-Object System.Drawing.SolidBrush(
+            [System.Drawing.Color]::FromArgb(40, 0, 255, 255))
+        $g.FillRectangle($brush, $rect)
+        $pen.Dispose(); $brush.Dispose(); $g.Dispose()
+    }
+})
+
+$overlay.Add_MouseUp({
+    if ($script:selecting -and $_.Button -eq 'Left') {
+        $script:selecting = $false
+        $script:endPoint = New-Object System.Drawing.Point(
+            ($_.Location.X + $vLeft), ($_.Location.Y + $vTop))
+        $script:cancelled = $false
+        $form.Close()
+    }
+})
+
+[System.Windows.Forms.Application]::Run($form)
+
+if (-not $script:cancelled -and $script:startPoint -and $script:endPoint) {
+    $rx = [Math]::Min($script:startPoint.X, $script:endPoint.X)
+    $ry = [Math]::Min($script:startPoint.Y, $script:endPoint.Y)
+    $rw = [Math]::Abs($script:endPoint.X - $script:startPoint.X)
+    $rh = [Math]::Abs($script:endPoint.Y - $script:startPoint.Y)
+    if ($rw -gt 5 -and $rh -gt 5) {
+        Write-Output "$rx|$ry|$rw|$rh"
+    } else {
+        Write-Output "CANCELLED"
+    }
+} else {
+    Write-Output "CANCELLED"
+}
+"""
+    result = subprocess.check_output(
+        ["powershell.exe", "-NoProfile", "-Command", ps_script]
+    ).decode().strip()
+
+    if result == "CANCELLED" or not result:
+        return None
+
+    parts = result.strip().splitlines()[-1].split("|")
+    if len(parts) != 4:
+        return None
+
+    return {
+        "x": int(parts[0]), "y": int(parts[1]),
+        "width": int(parts[2]), "height": int(parts[3])
+    }
+
+# ── Fungsi: capture region tertentu ke file (WSL) ────────────────────────────
+def capture_region_wsl(region, out_path_wsl):
+    win_path = subprocess.check_output(
+        ["wslpath", "-w", os.path.abspath(out_path_wsl)]
+    ).decode().strip()
+
+    ps_script = f"""
+    Add-Type -AssemblyName System.Windows.Forms
+    Add-Type -AssemblyName System.Drawing
+    $x      = {region['x']}
+    $y      = {region['y']}
+    $width  = {region['width']}
+    $height = {region['height']}
+    $bitmap   = New-Object System.Drawing.Bitmap $width, $height
+    $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+    $graphics.CopyFromScreen($x, $y, 0, 0, $bitmap.Size)
+    $bitmap.Save("{win_path}", [System.Drawing.Imaging.ImageFormat]::Png)
+    $graphics.Dispose()
+    $bitmap.Dispose()
+    """
+    subprocess.run(
+        ["powershell.exe", "-NoProfile", "-Command", ps_script],
+        check=True
+    )
 
 # ── Fungsi: capture satu monitor ke file (WSL) ───────────────────────────────
 def capture_monitor_wsl(monitor, out_path_wsl):
@@ -175,7 +315,7 @@ convert {target_file} -bordercolor {background_color} -border {background_size} 
 echo -n " {author} " | convert {target_file} \
 -gravity {author_position[0]} -pointsize {font_size} -fill '{color_fg}' \
 -undercolor '{color_bg}' -font {font} \
--annotate {author_position[1]} ' -{author}- ' {target_file}
+-annotate {author_position[1]} ' -{author}-' {target_file}
 
 convert {target_file} -gravity South -chop 0x{half_bg} {target_file}
 
@@ -192,11 +332,11 @@ convert {target_file} -profile {color_profile} {target_file}
 """)
 
 # ── Fungsi: proses satu screenshot (capture → imagemagick → clipboard) ───────
-def process_screenshot(monitor, label=""):
+def process_screenshot(monitor, label="", region=None):
     os.chdir(screenshot_dir)
 
     timestamp     = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    suffix        = f"_MON{label}" if label else ""
+    suffix        = "_SELECT" if region else (f"_MON{label}" if label else "")
     original_file = f"Screenshot_{timestamp}{suffix}.png"
     target        = list(original_file)
     target.insert(-4, 'X')
@@ -204,7 +344,10 @@ def process_screenshot(monitor, label=""):
 
     # Capture
     if is_wsl:
-        capture_monitor_wsl(monitor, original_file)
+        if region:
+            capture_region_wsl(region, original_file)
+        else:
+            capture_monitor_wsl(monitor, original_file)
     else:
         try:
             result = subprocess.run(["slurp"], capture_output=True)
@@ -283,6 +426,34 @@ if args.list:
         pos    = f"({m['x']}, {m['y']})"
         print(f"{i:<4} {m['name']:<25} {res:<16} {pos:<16} {status}")
     print()
+    sys.exit(0)
+
+# ── --select: screenshot area pilihan (seperti Flameshot) ────────────────────
+if args.select:
+    if is_wsl:
+        print("[i] Pilih area screenshot — drag mouse, Esc/klik kanan untuk batal.")
+        region = select_region_wsl()
+        if region is None:
+            print("[!] Screenshot dibatalkan.")
+            sys.exit(2)
+        print(f"[i] Area terpilih: {region['width']}x{region['height']} "
+              f"di ({region['x']}, {region['y']})")
+        target_file = process_screenshot(None, region=region)
+    else:
+        # Non-WSL: fallback ke slurp/flameshot yang sudah ada
+        target_file = process_screenshot(monitors[0])
+
+    if target_file is None:
+        sys.exit(1)
+
+    if is_wsl:
+        copy_to_clipboard_wsl(target_file)
+        print(f"[✓] Clipboard: {target_file}")
+    else:
+        subprocess.run(
+            ["xclip", "-selection", "clipboard", "-i", target_file, "-t", "image/png"],
+            check=True,
+        )
     sys.exit(0)
 
 # ── --monitor all: screenshot semua monitor ──────────────────────────────────
