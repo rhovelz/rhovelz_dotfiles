@@ -3,10 +3,22 @@ import os
 import sys
 import argparse
 import subprocess
+import shutil
+import base64
+import threading
+import atexit
 from datetime import datetime
 
+_upload_threads = []
+
+def _wait_uploads():
+    for t in _upload_threads:
+        t.join()
+atexit.register(_wait_uploads)
+
 # ── Konfigurasi ───────────────────────────────────────────────────────────────
-screenshot_dir   = "/home/xv4nz7/Picts/Screenshots"
+screenshot_dir     = "/home/xv4nz7/Picts/Screenshots"
+screenshot_dir_win = "/mnt/c/Users/THINKPAD/Pictures/Screenshot-script"
 color_profile    = "/usr/share/color/icc/colord/sRGB.icc"
 color_bg         = "#44475a"
 border_size      = "5"
@@ -19,10 +31,13 @@ color_fg         = "#FFFFFF"
 author_position  = ["NorthEast", "+50+12"]
 author           = "RADIVAN"
 
+# ── Konfigurasi Imgbb ─────────────────────────────────────────────────────────
+imgbb_api_key    = "82fe54c6af49b7937e22966cd64664ee"
+
 # ── Konfigurasi HD ────────────────────────────────────────────────────────────
 hd_scale         = "2"       # 2x upscale — ubah ke "1.5" atau "3" sesuai kebutuhan
 hd_filter        = "Lanczos" # Filter terbaik untuk upscale (tajam & smooth)
-hd_sharpen       = "0x0.5"   # Unsharp mask setelah upscale agar tidak blur
+hd_sharpen       = "0x0.8"   # Unsharp mask setelah upscale agar teks/garis crisp
 
 # ── Deteksi environment ───────────────────────────────────────────────────────
 is_wsl = "microsoft" in subprocess.getoutput("uname -r").lower()
@@ -233,12 +248,17 @@ def capture_region_wsl(region, out_path_wsl):
     ps_script = f"""
     Add-Type -AssemblyName System.Windows.Forms
     Add-Type -AssemblyName System.Drawing
+    Add-Type -MemberDefinition '[DllImport("user32.dll")] public static extern bool SetProcessDPIAware();' -Name DPI -Namespace Win32
+    [Win32.DPI]::SetProcessDPIAware() | Out-Null
     $x      = {region['x']}
     $y      = {region['y']}
     $width  = {region['width']}
     $height = {region['height']}
     $bitmap   = New-Object System.Drawing.Bitmap $width, $height
     $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+    $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+    $graphics.SmoothingMode     = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+    $graphics.PixelOffsetMode   = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
     $graphics.CopyFromScreen($x, $y, 0, 0, $bitmap.Size)
     $bitmap.Save("{win_path}", [System.Drawing.Imaging.ImageFormat]::Png)
     $graphics.Dispose()
@@ -258,12 +278,17 @@ def capture_monitor_wsl(monitor, out_path_wsl):
     ps_script = f"""
     Add-Type -AssemblyName System.Windows.Forms
     Add-Type -AssemblyName System.Drawing
+    Add-Type -MemberDefinition '[DllImport("user32.dll")] public static extern bool SetProcessDPIAware();' -Name DPI -Namespace Win32
+    [Win32.DPI]::SetProcessDPIAware() | Out-Null
     $x      = {monitor['x']}
     $y      = {monitor['y']}
     $width  = {monitor['width']}
     $height = {monitor['height']}
     $bitmap   = New-Object System.Drawing.Bitmap $width, $height
     $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+    $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+    $graphics.SmoothingMode     = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+    $graphics.PixelOffsetMode   = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
     $graphics.CopyFromScreen($x, $y, 0, 0, $bitmap.Size)
     $bitmap.Save("{win_path}", [System.Drawing.Imaging.ImageFormat]::Png)
     $graphics.Dispose()
@@ -297,39 +322,45 @@ def process_imagemagick(original_file, target_file):
     half_bg = int(background_size) // 2
 
     os.system(rf"""
-convert {original_file} -bordercolor '{color_bg}' -border {border_size} {target_file}
-
-convert {target_file} \
-     \( +clone  -alpha extract \
-        -draw 'fill black polygon 0,0 0,5 5,0 fill white circle 5,5 5,0' \
-        \( +clone -flip \) -compose Multiply -composite \
-        \( +clone -flop \) -compose Multiply -composite \
-     \) -alpha off -compose CopyOpacity -composite {target_file}
-
-convert {target_file} \( +clone -background black \
--shadow {shadow_size} \) +swap -background none \
--layers merge +repage {target_file}
-
-convert {target_file} -bordercolor {background_color} -border {background_size} {target_file}
-
-echo -n " {author} " | convert {target_file} \
--gravity {author_position[0]} -pointsize {font_size} -fill '{color_fg}' \
--undercolor '{color_bg}' -font {font} \
--annotate {author_position[1]} ' -{author}-' {target_file}
-
-convert {target_file} -gravity South -chop 0x{half_bg} {target_file}
-
-convert {target_file} -gravity North -background {background_color} \
--splice 0x{half_bg} {target_file}
-
-convert {target_file} \
-    -filter {hd_filter} \
-    -resize {hd_scale}00% \
-    -unsharp {hd_sharpen} \
+convert {original_file} \
+    -bordercolor '{color_bg}' -border {border_size} \
+    \( +clone -alpha extract \
+       -draw 'fill black polygon 0,0 0,5 5,0 fill white circle 5,5 5,0' \
+       \( +clone -flip \) -compose Multiply -composite \
+       \( +clone -flop \) -compose Multiply -composite \
+    \) -alpha off -compose CopyOpacity -composite \
+    miff:- | \
+convert miff:- \
+    \( +clone -background black -shadow {shadow_size} \) \
+    +swap -background none -layers merge +repage \
+    -bordercolor {background_color} -border {background_size} \
+    -gravity {author_position[0]} -pointsize {font_size} -fill '{color_fg}' \
+    -undercolor '{color_bg}' -font {font} \
+    -annotate {author_position[1]} ' -{author}-' \
+    -gravity South -chop 0x{half_bg} \
+    -gravity North -background {background_color} -splice 0x{half_bg} \
+    -filter {hd_filter} -resize {hd_scale}00% -unsharp {hd_sharpen} \
+    -profile {color_profile} \
     {target_file}
-
-convert {target_file} -profile {color_profile} {target_file}
 """)
+
+# ── Fungsi: upload ke Imgbb ───────────────────────────────────────────────────
+def upload_imgbb(file_path):
+    abs_path = os.path.join(screenshot_dir, file_path) if not os.path.isabs(file_path) else file_path
+    with open(abs_path, "rb") as f:
+        image_b64 = base64.b64encode(f.read()).decode()
+    from urllib.request import urlopen, Request
+    from urllib.parse import urlencode
+    data = urlencode({"key": imgbb_api_key, "image": image_b64}).encode()
+    try:
+        resp = urlopen(Request("https://api.imgbb.com/1/upload", data=data), timeout=60)
+        import json
+        result = json.loads(resp.read().decode())
+        if result.get("success"):
+            return result["data"]["url"]
+    except Exception as e:
+        print(f"[!] Upload Imgbb gagal: {e}")
+    return None
 
 # ── Fungsi: proses satu screenshot (capture → imagemagick → clipboard) ───────
 def process_screenshot(monitor, label="", region=None):
@@ -393,15 +424,25 @@ def process_screenshot(monitor, label="", region=None):
             os.remove(original_file)
         return None
 
-    # Optimasi PNG
-    if os.system("which optipng > /dev/null 2>&1") == 0:
-        os.system(f"optipng {target_file}")
-
     # Cleanup original
     if os.path.exists(original_file):
         os.remove(original_file)
 
+    # Copy ke direktori Windows
+    win_path = os.path.join(screenshot_dir_win, target_file)
+    shutil.copy2(target_file, win_path)
     print(f"[✓] Done: {target_file}")
+    print(f"[✓] Copy: {win_path}")
+
+    # Upload ke Imgbb (background — tidak blocking clipboard)
+    def _bg_upload(path):
+        url = upload_imgbb(path)
+        if url:
+            print(f"[✓] Imgbb: {url}")
+    t = threading.Thread(target=_bg_upload, args=(target_file,))
+    t.start()
+    _upload_threads.append(t)
+
     return target_file
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -409,6 +450,7 @@ def process_screenshot(monitor, label="", region=None):
 # ══════════════════════════════════════════════════════════════════════════════
 
 os.makedirs(screenshot_dir, exist_ok=True)
+os.makedirs(screenshot_dir_win, exist_ok=True)
 
 # Ambil daftar monitor
 if is_wsl:
